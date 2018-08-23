@@ -1,0 +1,38 @@
+html{
+    /* font-size: 62.5%; */
+    /* margin: auto; */
+    /* width:69rem;
+    height: 100% */
+  }
+  
+  *,*::before, *:after{
+    box-sizing:border-box;
+    padding:0;
+    margin:0;
+  }
+
+  .dagen {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .weekDagen {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 1rem;
+  }
+
+  input[type=checkbox] {
+      margin-left: 0.2rem;
+  }
+
+  .invisible {
+    display: none;
+  }
+
+  .py-4 {
+    padding-bottom: unset;
+  }
