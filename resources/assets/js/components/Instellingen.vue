@@ -32,6 +32,37 @@
                             <li class="breadcrumb-item active">Overview</li>
                         </ol>
                     </div>
+                    <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-chart-area"></i>
+            Area Chart Example</div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Aantal plaatsen</th>
+                    <th>Max aantal kids</th>
+                    <th>Type</th>
+                    <th>Prijs</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="item in boten">
+                        <td>boot {{item.id}}</td>
+                        <td>{{item.aantal_plaatsen}}</td>
+                        <td>{{item.max_kids}}</td>
+                        <td>{{item.type_id}}</td>
+                        <td>{{item.prijs}}</td>
+                    </tr>
+                </tbody>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
                     <!-- DataTables Example -->
                     <div class="row">
                         <div class="col-lg-8">
@@ -43,42 +74,42 @@
                                     <form action="">
                                         <div class="control-group form-group">
                                             <div class="controls">
-                                                <label for="plaatsen">Aantal plaatsen:</label>
-                                                <input id="plaatsen" type="number" class="form-control" required data-validation-required-message="Please enter your name.">
+                                                <label for="aantal_plaatsen">Aantal plaatsen:</label>
+                                                <input id="aantal_plaatsen" name="aantal_plaatsen" type="number" class="form-control" required data-validation-required-message="Please enter your name.">
                                                 <p class="help-block"></p>
                                             </div>
                                         </div>
                                         <div class="control-group form-group">
                                             <div class="controls">
-                                                <label for="kinderen">Max aantal kinderen:</label>
-                                                <input id="kinderen" type="number" class="form-control" required data-validation-required-message="Please enter your name.">
+                                                <label for="max_kinds">Max aantal kinderen:</label>
+                                                <input id="max_kids" type="number" name="max_kids" class="form-control" required data-validation-required-message="Please enter your name.">
                                                 <p class="help-block"></p>
                                             </div>
                                         </div>
                                         <div class="control-group form-group">
                                             <div class="controls">
                                                 <label for="type">Type:</label>
-                                                <input id="type" type="text" class="form-control" required data-validation-required-message="Please enter your name.">
+                                                <input id="type" name="type" type="text" class="form-control" required data-validation-required-message="Please enter your name.">
                                                 <p class="help-block"></p>
                                             </div>
                                         </div>
                                         <div class="control-group form-group">
                                             <div class="controls">
                                                 <label for="prijs">Prijs:</label>
-                                                <input id="prijs" type="number" class="form-control" required data-validation-required-message="Please enter your name.">
+                                                <input id="prijs" name="prijs" type="number" class="form-control" required data-validation-required-message="Please enter your name.">
                                                 <p class="help-block"></p>
                                             </div>
                                         </div>
                                         <div class="control-group form-group">
                                             <div class="controls">
-                                                <label for="beschikbaar">Aantal beschikbaar:</label>
-                                                <input id="beschikbaar" type="number" class="form-control" required data-validation-required-message="Please enter your name.">
+                                                <label for="aantal_beschikbaar">Aantal beschikbaar:</label>
+                                                <input id="aantal_beschikbaar" name="aantal_beschikbaar" type="number" class="form-control" required data-validation-required-message="Please enter your name.">
                                                 <p class="help-block"></p>
                                             </div>
                                         </div>
                                         <div id="success"></div>
                                         <!-- For success/fail messages -->
-                                        <button type="submit" class="btn btn-primary" id="sendMessageButton">Voeg boot toe</button>
+                                        <button type="submit" class="btn btn-primary" id="sendMessageButton" @click="storeNewBoot();">Voeg boot toe</button>
                                     </form>
                                 </div>
                             </div>
@@ -334,3 +365,41 @@
         </div>
     </div>
 </template>
+
+<script>
+    export default {
+        data(){
+          return{
+            boten: [],
+            loggedinUser: {
+              'username': '',
+              'email': '',
+              'roles': []
+            },
+            newBoot: {
+                'aantal_plaatsen': null,
+                'max_kids': null,
+                'prijs': null,
+                'type': null,
+                'aantal_beschikbaar': null
+            }
+          }
+        },
+        mounted() {
+            this.prepareComponent();
+        },
+        methods: {
+          prepareComponent(){
+            this.getBoten();
+          },
+          getBoten(){
+            axios.get('/boten')
+              .then(response => {
+                this.boten = response.data;
+                console.log(response.data);
+              });
+          }
+        }
+    }
+</script>
+

@@ -60014,7 +60014,7 @@ if (false) {
 var disposed = false
 var normalizeComponent = __webpack_require__(12)
 /* script */
-var __vue_script__ = null
+var __vue_script__ = __webpack_require__(60)
 /* template */
 var __vue_template__ = __webpack_require__(57)
 /* template functional */
@@ -60103,12 +60103,100 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _vm._m(0)
+      _c("div", { attrs: { id: "content-wrapper" } }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "card mb-3" }, [
+          _vm._m(1),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "table-responsive" }, [
+              _c(
+                "table",
+                {
+                  staticClass: "table table-bordered",
+                  attrs: { id: "dataTable", width: "100%", cellspacing: "0" }
+                },
+                [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.boten, function(item) {
+                      return _c("tr", [
+                        _c("td", [_vm._v("boot " + _vm._s(item.id))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(item.aantal_plaatsen))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(item.max_kids))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(item.type_id))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(item.prijs))])
+                      ])
+                    })
+                  )
+                ]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-footer small text-muted" }, [
+            _vm._v("Updated yesterday at 11:59 PM")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-lg-8" }, [
+            _c("div", { staticClass: "card mb-3" }, [
+              _vm._m(3),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c("form", { attrs: { action: "" } }, [
+                  _vm._m(4),
+                  _vm._v(" "),
+                  _vm._m(5),
+                  _vm._v(" "),
+                  _vm._m(6),
+                  _vm._v(" "),
+                  _vm._m(7),
+                  _vm._v(" "),
+                  _vm._m(8),
+                  _vm._v(" "),
+                  _c("div", { attrs: { id: "success" } }),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { type: "submit", id: "sendMessageButton" },
+                      on: {
+                        click: function($event) {
+                          _vm.storeNewBoot()
+                        }
+                      }
+                    },
+                    [_vm._v("Voeg boot toe")]
+                  )
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _vm._m(9),
+          _vm._v(" "),
+          _vm._m(10)
+        ]),
+        _vm._v(" "),
+        _vm._m(11),
+        _vm._v(" "),
+        _vm._m(12)
+      ])
     ]),
     _vm._v(" "),
-    _vm._m(1),
+    _vm._m(13),
     _vm._v(" "),
-    _vm._m(2)
+    _vm._m(14)
   ])
 }
 var staticRenderFns = [
@@ -60116,697 +60204,730 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { attrs: { id: "content-wrapper" } }, [
-      _c("div", { staticClass: "container-fluid" }, [
-        _c("ol", { staticClass: "breadcrumb" }, [
-          _c("li", { staticClass: "breadcrumb-item" }, [
-            _c("a", { attrs: { href: "#" } }, [_vm._v("Dashboard")])
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "breadcrumb-item active" }, [
-            _vm._v("Overview")
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-lg-8" }, [
-          _c("div", { staticClass: "card mb-3" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _c("i", { staticClass: "fas fa-table" }),
-              _vm._v("\n                                Boten")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("form", { attrs: { action: "" } }, [
-                _c("div", { staticClass: "control-group form-group" }, [
-                  _c("div", { staticClass: "controls" }, [
-                    _c("label", { attrs: { for: "plaatsen" } }, [
-                      _vm._v("Aantal plaatsen:")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: {
-                        id: "plaatsen",
-                        type: "number",
-                        required: "",
-                        "data-validation-required-message":
-                          "Please enter your name."
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "help-block" })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "control-group form-group" }, [
-                  _c("div", { staticClass: "controls" }, [
-                    _c("label", { attrs: { for: "kinderen" } }, [
-                      _vm._v("Max aantal kinderen:")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: {
-                        id: "kinderen",
-                        type: "number",
-                        required: "",
-                        "data-validation-required-message":
-                          "Please enter your name."
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "help-block" })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "control-group form-group" }, [
-                  _c("div", { staticClass: "controls" }, [
-                    _c("label", { attrs: { for: "type" } }, [_vm._v("Type:")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: {
-                        id: "type",
-                        type: "text",
-                        required: "",
-                        "data-validation-required-message":
-                          "Please enter your name."
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "help-block" })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "control-group form-group" }, [
-                  _c("div", { staticClass: "controls" }, [
-                    _c("label", { attrs: { for: "prijs" } }, [
-                      _vm._v("Prijs:")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: {
-                        id: "prijs",
-                        type: "number",
-                        required: "",
-                        "data-validation-required-message":
-                          "Please enter your name."
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "help-block" })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "control-group form-group" }, [
-                  _c("div", { staticClass: "controls" }, [
-                    _c("label", { attrs: { for: "beschikbaar" } }, [
-                      _vm._v("Aantal beschikbaar:")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: {
-                        id: "beschikbaar",
-                        type: "number",
-                        required: "",
-                        "data-validation-required-message":
-                          "Please enter your name."
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "help-block" })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { attrs: { id: "success" } }),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    attrs: { type: "submit", id: "sendMessageButton" }
-                  },
-                  [_vm._v("Voeg boot toe")]
-                )
-              ])
-            ])
-          ])
+    return _c("div", { staticClass: "container-fluid" }, [
+      _c("ol", { staticClass: "breadcrumb" }, [
+        _c("li", { staticClass: "breadcrumb-item" }, [
+          _c("a", { attrs: { href: "#" } }, [_vm._v("Dashboard")])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-lg-4" }, [
-          _c("div", { staticClass: "card mb-3" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _c("i", { staticClass: "fas fa-table" }),
-              _vm._v("\n                                Tijdssloten")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("form", { attrs: { action: "" } }, [
-                _c("div", { staticClass: "control-group form-group" }, [
-                  _c("p", [_vm._v("Dagen:")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "controls dagen" }, [
-                    _c(
-                      "label",
-                      { staticClass: "weekDagen", attrs: { for: "maandag" } },
-                      [
-                        _vm._v(
-                          "Maandag\n                                                "
-                        ),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "checkbox",
-                            id: "maandag",
-                            required: "",
-                            "data-validation-required-message":
-                              "Please enter your ."
-                          }
-                        })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "label",
-                      { staticClass: "weekDagen", attrs: { for: "dinsdag" } },
-                      [
-                        _vm._v(
-                          "Dinsdag\n                                                "
-                        ),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "checkbox",
-                            id: "dinsdag",
-                            required: "",
-                            "data-validation-required-message":
-                              "Please enter your ."
-                          }
-                        })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "label",
-                      { staticClass: "weekDagen", attrs: { for: "woensdag" } },
-                      [
-                        _vm._v(
-                          "Woensdag\n                                                "
-                        ),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "checkbox",
-                            id: "woensdag",
-                            required: "",
-                            "data-validation-required-message":
-                              "Please enter your ."
-                          }
-                        })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "label",
-                      { staticClass: "weekDagen", attrs: { for: "donderdag" } },
-                      [
-                        _vm._v(
-                          "Donderdag\n                                                "
-                        ),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "checkbox",
-                            id: "donderdag",
-                            required: "",
-                            "data-validation-required-message":
-                              "Please enter your ."
-                          }
-                        })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "label",
-                      { staticClass: "weekDagen", attrs: { for: "vrijdag" } },
-                      [
-                        _vm._v(
-                          "Vrijdag\n                                                "
-                        ),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "checkbox",
-                            id: "vrijdag",
-                            required: "",
-                            "data-validation-required-message":
-                              "Please enter your ."
-                          }
-                        })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "label",
-                      { staticClass: "weekDagen", attrs: { for: "zaterdag" } },
-                      [
-                        _vm._v(
-                          "Zaterdag\n                                                "
-                        ),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "checkbox",
-                            id: "zaterdag",
-                            required: "",
-                            "data-validation-required-message":
-                              "Please enter your ."
-                          }
-                        })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "label",
-                      { staticClass: "weekDagen", attrs: { for: "zondag" } },
-                      [
-                        _vm._v(
-                          "Zondag\n                                                "
-                        ),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "checkbox",
-                            id: "zondag",
-                            required: "",
-                            "data-validation-required-message":
-                              "Please enter your ."
-                          }
-                        })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "help-block" })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "control-group form-group" }, [
-                  _c("p", [_vm._v("Dagdeel: ")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "controls dagen" }, [
-                    _c(
-                      "label",
-                      {
-                        staticClass: "weekDagen",
-                        attrs: { for: "voormiddag" }
-                      },
-                      [
-                        _vm._v(
-                          "Voormiddag\n                                                "
-                        ),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "checkbox",
-                            id: "voormiddag",
-                            required: "",
-                            "data-validation-required-message":
-                              "Please enter your ."
-                          }
-                        })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "label",
-                      { staticClass: "weekDagen", attrs: { for: "namiddag" } },
-                      [
-                        _vm._v(
-                          "Namiddag\n                                                "
-                        ),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "checkbox",
-                            id: "namiddag",
-                            required: "",
-                            "data-validation-required-message":
-                              "Please enter your ."
-                          }
-                        })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "help-block" })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "control-group form-group" }, [
-                  _c("div", { staticClass: "controls" }, [
-                    _c("label", { attrs: { for: "startUur" } }, [
-                      _vm._v("Start uur:")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "time",
-                        id: "startuur",
-                        required: "",
-                        "data-validation-required-message":
-                          "Please enter your name."
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "help-block" })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "control-group form-group" }, [
-                  _c("div", { staticClass: "controls" }, [
-                    _c("label", { attrs: { for: "eindUur" } }, [
-                      _vm._v("Eind uur:")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "time",
-                        id: "eindUur",
-                        required: "",
-                        "data-validation-required-message":
-                          "Please enter your name."
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "help-block" })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { attrs: { id: "success" } }),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    attrs: { type: "submit", id: "sendMessageButton" }
-                  },
-                  [_vm._v("Voeg tijdslot toe")]
-                )
-              ])
-            ])
-          ])
+        _c("li", { staticClass: "breadcrumb-item active" }, [
+          _vm._v("Overview")
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("i", { staticClass: "fas fa-chart-area" }),
+      _vm._v("\n        Area Chart Example")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th"),
+        _vm._v(" "),
+        _c("th", [_vm._v("Aantal plaatsen")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Max aantal kids")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Type")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Prijs")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("i", { staticClass: "fas fa-table" }),
+      _vm._v("\n                                Boten")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "control-group form-group" }, [
+      _c("div", { staticClass: "controls" }, [
+        _c("label", { attrs: { for: "aantal_plaatsen" } }, [
+          _vm._v("Aantal plaatsen:")
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-lg-4" }, [
-          _c("div", { staticClass: "card mb-3" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _c("i", { staticClass: "fas fa-table" }),
-              _vm._v("\n                                Gesloten")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("form", { attrs: { action: "" } }, [
-                _c("div", { staticClass: "control-group form-group" }, [
-                  _c("div", { staticClass: "controls" }, [
-                    _c("label", { attrs: { for: "dag" } }, [
-                      _vm._v(
-                        "Dag\n                                                "
-                      ),
-                      _c("input", { attrs: { id: "dag", type: "checkbox" } })
-                    ]),
-                    _vm._v(" "),
-                    _c("label", { attrs: { for: "periode" } }, [
-                      _vm._v(
-                        "Periode\n                                                "
-                      ),
-                      _c("input", {
-                        attrs: { id: "periode", type: "checkbox" }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "help-block" })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "control-group form-group invisible",
-                    attrs: { id: "enkeleDag" }
-                  },
-                  [
-                    _c("div", { staticClass: "controls" }, [
-                      _c("label", { attrs: { for: "keuzeDag" } }, [
-                        _vm._v("Keuze dag")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "date",
-                          id: "keuzeDag",
-                          required: "",
-                          "data-validation-required-message":
-                            "Please enter your name."
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "help-block" })
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "control-group form-group invisible",
-                    attrs: { id: "periodeKeuze" }
-                  },
-                  [
-                    _c("div", { staticClass: "controls" }, [
-                      _c("p", [_vm._v("Keuze periode")]),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "startPeriode" } }, [
-                        _vm._v(
-                          "Start date\n                                                "
-                        ),
-                        _c("input", {
-                          attrs: { type: "date", id: "startPeriode" }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "eindPeriode" } }, [
-                        _vm._v(
-                          "\n                                                End date\n                                                "
-                        ),
-                        _c("input", {
-                          attrs: { id: "eindPeriode", type: "date" }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "help-block" })
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { attrs: { id: "success" } }),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    attrs: { type: "submit", id: "sendMessageButton" }
-                  },
-                  [_vm._v("Voeg sluitdagen toe")]
-                )
-              ])
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            id: "aantal_plaatsen",
+            name: "aantal_plaatsen",
+            type: "number",
+            required: "",
+            "data-validation-required-message": "Please enter your name."
+          }
+        }),
+        _vm._v(" "),
+        _c("p", { staticClass: "help-block" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "control-group form-group" }, [
+      _c("div", { staticClass: "controls" }, [
+        _c("label", { attrs: { for: "max_kinds" } }, [
+          _vm._v("Max aantal kinderen:")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            id: "max_kids",
+            type: "number",
+            name: "max_kids",
+            required: "",
+            "data-validation-required-message": "Please enter your name."
+          }
+        }),
+        _vm._v(" "),
+        _c("p", { staticClass: "help-block" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "control-group form-group" }, [
+      _c("div", { staticClass: "controls" }, [
+        _c("label", { attrs: { for: "type" } }, [_vm._v("Type:")]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            id: "type",
+            name: "type",
+            type: "text",
+            required: "",
+            "data-validation-required-message": "Please enter your name."
+          }
+        }),
+        _vm._v(" "),
+        _c("p", { staticClass: "help-block" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "control-group form-group" }, [
+      _c("div", { staticClass: "controls" }, [
+        _c("label", { attrs: { for: "prijs" } }, [_vm._v("Prijs:")]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            id: "prijs",
+            name: "prijs",
+            type: "number",
+            required: "",
+            "data-validation-required-message": "Please enter your name."
+          }
+        }),
+        _vm._v(" "),
+        _c("p", { staticClass: "help-block" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "control-group form-group" }, [
+      _c("div", { staticClass: "controls" }, [
+        _c("label", { attrs: { for: "aantal_beschikbaar" } }, [
+          _vm._v("Aantal beschikbaar:")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            id: "aantal_beschikbaar",
+            name: "aantal_beschikbaar",
+            type: "number",
+            required: "",
+            "data-validation-required-message": "Please enter your name."
+          }
+        }),
+        _vm._v(" "),
+        _c("p", { staticClass: "help-block" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-lg-4" }, [
       _c("div", { staticClass: "card mb-3" }, [
         _c("div", { staticClass: "card-header" }, [
           _c("i", { staticClass: "fas fa-table" }),
-          _vm._v("\n                        Tijdsloten overzicht")
+          _vm._v("\n                                Tijdssloten")
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
-          _c("div", { staticClass: "table-responsive" }, [
-            _c(
-              "table",
-              {
-                staticClass: "table table-bordered",
-                attrs: { id: "dataTable", width: "100%", cellspacing: "0" }
-              },
-              [
-                _c("thead", [
-                  _c("tr", [
-                    _c("th"),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Maandag")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Dinsdag")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Woensdag")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Donderdag")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Vrijdag")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Zaterdag")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Zondag")])
-                  ])
+          _c("form", { attrs: { action: "" } }, [
+            _c("div", { staticClass: "control-group form-group" }, [
+              _c("p", [_vm._v("Dagen:")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "controls dagen" }, [
+                _c(
+                  "label",
+                  { staticClass: "weekDagen", attrs: { for: "maandag" } },
+                  [
+                    _vm._v(
+                      "Maandag\n                                                "
+                    ),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "checkbox",
+                        id: "maandag",
+                        required: "",
+                        "data-validation-required-message":
+                          "Please enter your ."
+                      }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { staticClass: "weekDagen", attrs: { for: "dinsdag" } },
+                  [
+                    _vm._v(
+                      "Dinsdag\n                                                "
+                    ),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "checkbox",
+                        id: "dinsdag",
+                        required: "",
+                        "data-validation-required-message":
+                          "Please enter your ."
+                      }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { staticClass: "weekDagen", attrs: { for: "woensdag" } },
+                  [
+                    _vm._v(
+                      "Woensdag\n                                                "
+                    ),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "checkbox",
+                        id: "woensdag",
+                        required: "",
+                        "data-validation-required-message":
+                          "Please enter your ."
+                      }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { staticClass: "weekDagen", attrs: { for: "donderdag" } },
+                  [
+                    _vm._v(
+                      "Donderdag\n                                                "
+                    ),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "checkbox",
+                        id: "donderdag",
+                        required: "",
+                        "data-validation-required-message":
+                          "Please enter your ."
+                      }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { staticClass: "weekDagen", attrs: { for: "vrijdag" } },
+                  [
+                    _vm._v(
+                      "Vrijdag\n                                                "
+                    ),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "checkbox",
+                        id: "vrijdag",
+                        required: "",
+                        "data-validation-required-message":
+                          "Please enter your ."
+                      }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { staticClass: "weekDagen", attrs: { for: "zaterdag" } },
+                  [
+                    _vm._v(
+                      "Zaterdag\n                                                "
+                    ),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "checkbox",
+                        id: "zaterdag",
+                        required: "",
+                        "data-validation-required-message":
+                          "Please enter your ."
+                      }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { staticClass: "weekDagen", attrs: { for: "zondag" } },
+                  [
+                    _vm._v(
+                      "Zondag\n                                                "
+                    ),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "checkbox",
+                        id: "zondag",
+                        required: "",
+                        "data-validation-required-message":
+                          "Please enter your ."
+                      }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c("p", { staticClass: "help-block" })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "control-group form-group" }, [
+              _c("p", [_vm._v("Dagdeel: ")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "controls dagen" }, [
+                _c(
+                  "label",
+                  { staticClass: "weekDagen", attrs: { for: "voormiddag" } },
+                  [
+                    _vm._v(
+                      "Voormiddag\n                                                "
+                    ),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "checkbox",
+                        id: "voormiddag",
+                        required: "",
+                        "data-validation-required-message":
+                          "Please enter your ."
+                      }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { staticClass: "weekDagen", attrs: { for: "namiddag" } },
+                  [
+                    _vm._v(
+                      "Namiddag\n                                                "
+                    ),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "checkbox",
+                        id: "namiddag",
+                        required: "",
+                        "data-validation-required-message":
+                          "Please enter your ."
+                      }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c("p", { staticClass: "help-block" })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "control-group form-group" }, [
+              _c("div", { staticClass: "controls" }, [
+                _c("label", { attrs: { for: "startUur" } }, [
+                  _vm._v("Start uur:")
                 ]),
                 _vm._v(" "),
-                _c("tbody", [
-                  _c("tr", [
-                    _c("td", [_vm._v("9u")]),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td")
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("9u30")]),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td")
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("10u")]),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td")
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("10u30")]),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td")
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("11u")]),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td")
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("11u30")]),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td")
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("12u")]),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td")
-                  ])
-                ])
-              ]
+                _c("input", {
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "time",
+                    id: "startuur",
+                    required: "",
+                    "data-validation-required-message":
+                      "Please enter your name."
+                  }
+                }),
+                _vm._v(" "),
+                _c("p", { staticClass: "help-block" })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "control-group form-group" }, [
+              _c("div", { staticClass: "controls" }, [
+                _c("label", { attrs: { for: "eindUur" } }, [
+                  _vm._v("Eind uur:")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "time",
+                    id: "eindUur",
+                    required: "",
+                    "data-validation-required-message":
+                      "Please enter your name."
+                  }
+                }),
+                _vm._v(" "),
+                _c("p", { staticClass: "help-block" })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { attrs: { id: "success" } }),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                attrs: { type: "submit", id: "sendMessageButton" }
+              },
+              [_vm._v("Voeg tijdslot toe")]
             )
           ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-lg-4" }, [
+      _c("div", { staticClass: "card mb-3" }, [
+        _c("div", { staticClass: "card-header" }, [
+          _c("i", { staticClass: "fas fa-table" }),
+          _vm._v("\n                                Gesloten")
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "card-footer small text-muted" }, [
-          _vm._v("Updated yesterday at 11:59 PM")
+        _c("div", { staticClass: "card-body" }, [
+          _c("form", { attrs: { action: "" } }, [
+            _c("div", { staticClass: "control-group form-group" }, [
+              _c("div", { staticClass: "controls" }, [
+                _c("label", { attrs: { for: "dag" } }, [
+                  _vm._v(
+                    "Dag\n                                                "
+                  ),
+                  _c("input", { attrs: { id: "dag", type: "checkbox" } })
+                ]),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "periode" } }, [
+                  _vm._v(
+                    "Periode\n                                                "
+                  ),
+                  _c("input", { attrs: { id: "periode", type: "checkbox" } })
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "help-block" })
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "control-group form-group invisible",
+                attrs: { id: "enkeleDag" }
+              },
+              [
+                _c("div", { staticClass: "controls" }, [
+                  _c("label", { attrs: { for: "keuzeDag" } }, [
+                    _vm._v("Keuze dag")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "date",
+                      id: "keuzeDag",
+                      required: "",
+                      "data-validation-required-message":
+                        "Please enter your name."
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "help-block" })
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "control-group form-group invisible",
+                attrs: { id: "periodeKeuze" }
+              },
+              [
+                _c("div", { staticClass: "controls" }, [
+                  _c("p", [_vm._v("Keuze periode")]),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "startPeriode" } }, [
+                    _vm._v(
+                      "Start date\n                                                "
+                    ),
+                    _c("input", { attrs: { type: "date", id: "startPeriode" } })
+                  ]),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "eindPeriode" } }, [
+                    _vm._v(
+                      "\n                                                End date\n                                                "
+                    ),
+                    _c("input", { attrs: { id: "eindPeriode", type: "date" } })
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "help-block" })
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { attrs: { id: "success" } }),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                attrs: { type: "submit", id: "sendMessageButton" }
+              },
+              [_vm._v("Voeg sluitdagen toe")]
+            )
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card mb-3" }, [
+      _c("div", { staticClass: "card-header" }, [
+        _c("i", { staticClass: "fas fa-table" }),
+        _vm._v("\n                        Tijdsloten overzicht")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-body" }, [
+        _c("div", { staticClass: "table-responsive" }, [
+          _c(
+            "table",
+            {
+              staticClass: "table table-bordered",
+              attrs: { id: "dataTable", width: "100%", cellspacing: "0" }
+            },
+            [
+              _c("thead", [
+                _c("tr", [
+                  _c("th"),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Maandag")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Dinsdag")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Woensdag")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Donderdag")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Vrijdag")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Zaterdag")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Zondag")])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("tbody", [
+                _c("tr", [
+                  _c("td", [_vm._v("9u")]),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td")
+                ]),
+                _vm._v(" "),
+                _c("tr", [
+                  _c("td", [_vm._v("9u30")]),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td")
+                ]),
+                _vm._v(" "),
+                _c("tr", [
+                  _c("td", [_vm._v("10u")]),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td")
+                ]),
+                _vm._v(" "),
+                _c("tr", [
+                  _c("td", [_vm._v("10u30")]),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td")
+                ]),
+                _vm._v(" "),
+                _c("tr", [
+                  _c("td", [_vm._v("11u")]),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td")
+                ]),
+                _vm._v(" "),
+                _c("tr", [
+                  _c("td", [_vm._v("11u30")]),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td")
+                ]),
+                _vm._v(" "),
+                _c("tr", [
+                  _c("td", [_vm._v("12u")]),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td")
+                ])
+              ])
+            ]
+          )
         ])
       ]),
       _vm._v(" "),
-      _c("footer", { staticClass: "sticky-footer" }, [
-        _c("div", { staticClass: "container my-auto" }, [
-          _c("div", { staticClass: "copyright text-center my-auto" }, [
-            _c("span", [_vm._v("Copyright © Dokano 2018")])
-          ])
+      _c("div", { staticClass: "card-footer small text-muted" }, [
+        _vm._v("Updated yesterday at 11:59 PM")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("footer", { staticClass: "sticky-footer" }, [
+      _c("div", { staticClass: "container my-auto" }, [
+        _c("div", { staticClass: "copyright text-center my-auto" }, [
+          _c("span", [_vm._v("Copyright © Dokano 2018")])
         ])
       ])
     ])
@@ -61200,6 +61321,418 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-08c011e7", module.exports)
   }
 }
+
+/***/ }),
+/* 60 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      boten: [],
+      loggedinUser: {
+        'username': '',
+        'email': '',
+        'roles': []
+      },
+      newBoot: {
+        'aantal_plaatsen': null,
+        'max_kids': null,
+        'prijs': null,
+        'type': null,
+        'aantal_beschikbaar': null
+      }
+    };
+  },
+  mounted: function mounted() {
+    this.prepareComponent();
+  },
+
+  methods: {
+    prepareComponent: function prepareComponent() {
+      this.getBoten();
+    },
+    getBoten: function getBoten() {
+      var _this = this;
+
+      axios.get('/boten').then(function (response) {
+        _this.boten = response.data;
+        console.log(response.data);
+      });
+    }
+  }
+});
 
 /***/ })
 /******/ ]);
