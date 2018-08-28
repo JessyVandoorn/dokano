@@ -51858,7 +51858,7 @@ var render = function() {
                     _c(
                       "tbody",
                       _vm._l(_vm.tijdsloten, function(dag) {
-                        return dag.dagen === "maandag"
+                        return dag.dagen === _vm.weekdagSelected
                           ? _c("tr", [
                               _c("td", [
                                 _vm._v(

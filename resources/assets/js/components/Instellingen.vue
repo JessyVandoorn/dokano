@@ -238,7 +238,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="dag in tijdsloten" v-if="dag.dagen === 'maandag'">
+                                    <tr v-for="dag in tijdsloten" v-if="dag.dagen === weekdagSelected">
                                         <td >{{dag.uur_start}} - {{dag.uur_eind}}</td>
                                     </tr>
                                 </tbody>
