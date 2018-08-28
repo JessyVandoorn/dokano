@@ -17,8 +17,14 @@ Route::get('/', function () {
 
 Route::get('/app', 'ApplicationController@index')->name('application');
 Route::get('/boten', 'BotenController@index');
-Route::post('/boten', 'BotenController@store');
+Route::post('boten', 'BotenController@store');
 Auth::routes();
+
+Route::get('/gesloten', 'GeslotenController@index');
+Route::post('gesloten', 'GeslotenController@store');
+
+Route::get('/tijdsloten', 'TijdslotenController@index');
+Route::post('tijdsloten', 'TijdslotenController@store');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/inkomsten', 'InkomstenController@index')->name('inkomsten');

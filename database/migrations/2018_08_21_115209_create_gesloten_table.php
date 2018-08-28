@@ -16,10 +16,11 @@ class CreateGeslotenTable extends Migration
         Schema::create('gesloten', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->string('dag')->nullable();
-            $table->string('periode')->nullable();
+            $table->boolean('dag')->nullable();
+            $table->boolean('periode')->nullable();
             $table->date('date1')->nullable();
             $table->date('date2')->nullable();
+            $table->date('date3')->nullable();
         });
     }
 

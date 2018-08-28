@@ -16,7 +16,6 @@ class CreateTijdslotenTable extends Migration
         Schema::create('tijdsloten', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->string('dagdeel');
             $table->string('dagen');
             $table->time('uur_start');
             $table->time('uur_eind');

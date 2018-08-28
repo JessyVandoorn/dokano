@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use DB;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Log;
 
-class BotenController extends Controller
+class GeslotenController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,9 @@ class BotenController extends Controller
      */
     public function index()
     {
-        $boten = DB::table('boten')->select('boten.*')->get();
+        $gesloten = DB::table('gesloten')->get();
 
-        return $boten;
+        return $gesloten;
     }
 
     /**
@@ -40,9 +40,7 @@ class BotenController extends Controller
     public function store(Request $request)
     {
         Log::warning($request);
-        for($i = 1;$i<=$request['aantal_beschikbaar'];$i++){
-            DB::table('boten')->insert(['aantal_plaatsen' =>$request['aantal_plaatsen'], 'max_kids'=>$request['max_kids'],'types_id'=>$request['types_id'], 'prijs'=>$request['prijs'], 'aantal_beschikbaar'=>$request['aantal_beschikbaar'], 'created_at'=>Carbon::now()]);
-        }
+        DB::table('gesloten')->insert(['dag' =>$request['dag'], 'periode'=>$request['periode'],'date1'=>$request['date1'], 'date2'=>$request['date2'], 'date3'=>$request['date3'], 'created_at'=>Carbon::now()]);
     }
 
     /**

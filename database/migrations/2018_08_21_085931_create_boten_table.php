@@ -18,7 +18,7 @@ class CreateBotenTable extends Migration
             $table->timestamps();
             $table->integer('aantal_plaatsen');
             $table->integer('max_kids');
-            $table->integer('type_id');
+            $table->integer('types_id');
             $table->integer('prijs');
             $table->integer('aantal_beschikbaar');
         });
