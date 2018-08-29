@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/customer', 'CustomerController@index')->name('customer');
+
 Route::get('/app', 'ApplicationController@index')->name('application');
 Route::get('/boten', 'BotenController@index');
 Route::post('boten', 'BotenController@store');
@@ -22,6 +24,10 @@ Auth::routes();
 
 Route::get('/gesloten', 'GeslotenController@index');
 Route::post('gesloten', 'GeslotenController@store');
+
+Route::get('/klanten', 'KlantenController@index');
+Route::post('/klanten', 'KlantenController@store');
+Route::get('/klanten/{id}', 'KlantenController@show');
 
 Route::get('/tijdsloten', 'TijdslotenController@index');
 Route::post('tijdsloten', 'TijdslotenController@store');

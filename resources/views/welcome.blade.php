@@ -1,17 +1,18 @@
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{csrf_token() }}">
-        <title>Laravel</title>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{csrf_token() }}">
+    <title>Laravel</title>
 
-        <!-- Styles -->
-        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+    <!-- Styles -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -21,7 +22,7 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
-        <!-- <style>
+    <!-- <style>
             html, body {
                 background-color: #fff;
                 color: #636b6f;
@@ -73,14 +74,15 @@
                 margin-bottom: 30px;
             }
         </style> -->
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <!-- <a href="{{ url('/home') }}">Home</a> -->
-                        <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+</head>
+
+<body>
+    <div class="flex-center position-ref full-height">
+        @if (Route::has('login'))
+        <div class="top-right links">
+            @auth
+            <!-- <a href="{{ url('/home') }}">Home</a> -->
+            <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
                 <a class="navbar-brand mr-1" href="index.html">Dokano</a>
 
@@ -100,44 +102,45 @@
                     </div>
                 </form>
                 <ul>
-                <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false" v-pre>
+                            {{ Auth::user()->name }}
+                            <span class="caret"></span>
+                        </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
+                                {{ __('Logout') }}
+                            </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
                 </ul>
             </nav>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
+            @else
+            <a href="{{ route('login') }}">Login</a>
+            <a href="{{ route('register') }}">Register</a>
+            @endauth
+        </div>
+        @endif
 
-            <div class="content">
-                <div id="app">
-                @if (Route::has('login'))
-                @auth
-                  <router-view></router-view>
-                  @else
-                  <p>Gelieve in te loggen</p>
-                  @endauth
-                  @endif
-                </div>
+        <div class="content">
+            <div id="app">
+                @if (Route::has('login')) @auth
+                <router-view></router-view>
+                @else
+                <p>Gelieve in te loggen</p>
+                <a href="{{ route('customer') }}">Customer</a>
+                @endauth @endif
             </div>
         </div>
-        <script src="{{ elixir('js/app.js') }}"></script>
-    </body>
+    </div>
+    <script src="{{ elixir('js/app.js') }}"></script>
+</body>
+
 </html>
