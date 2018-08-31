@@ -11,20 +11,20 @@
             <form action="" id="contactForm">
                 <fieldset class="control-group">
                     <legend>Stap 1</legend>
-                    <label for="" class="col-12 col-md-9 mb-2 mb-md-0">Kies je dag{{pickedDate}}
-                        <input class="form-control form-control-lg buttonDag" type="date" id="datePicker" v-model="pickedDate">
+                    <label for="" class="col-12 col-md-9 mb-2 mb-md-0">Kies je dag
+                        <input class="form-control form-control-lg buttonDag" type="date" id="datePicker" v-model="newReservaties.datum" @change="moment">
                     </label>
 
                 </fieldset>
                 <hr>
-                <fieldset class="control-group" v-show="pickedDate !== null">
+                <fieldset class="control-group" v-show="pickedDate !== false">
                     <legend>Stap 2</legend>
 
                     <label for="" class="col-12 col-md-9 mb-2 mb-md-0">
-                        Kies je uur {{selectedButton}}
+                        Kies je uur{{selectedButton}}
                         <div class="buttons">
-                            <label for="" v-for="slot in tijdsloten">{{slot.uur_start}}-{{slot.uur_eind}}
-                                <input type="checkbox" v-model="selectedButton">
+                            <label for="" v-for="slot in tijdsloten" v-if="dayOfWeek === slot.dagen">{{slot.uur_start}}-{{slot.uur_eind}}
+                                <input type="radio" v-model="newReservaties.tijdsloten_id" :key="slot.id" :value="slot.id">
                             </label>
                         </div>
                     </label>
@@ -32,7 +32,7 @@
                 </fieldset>
             </form>
             <hr>
-            <div class="table-responsive" v-show="selectedButton">
+            <div class="table-responsive" v-if="newReservaties.tijdsloten_id !== null">
                 <legend>Stap 3</legend>
                 <p class="col-md-9 mb-2 mb-md-0">Kies je boot</p>
                 <table class="table table-bordered mb-2 mb-md-0">
@@ -49,10 +49,9 @@
                             <td>{{boot.aantal_plaatsen}}</td>
                             <td>{{boot.max_kids}}</td>
                             <td>{{boot.prijs}}</td>
-                            <td>
-                                <button class="btn btn btn-outline-primary bootKnop" @click="chooseBoat" :id="boot.id" v-model="clickedBoats">Kies</button>
+                            <td>Kies
+                                <input type="checkbox" class="btn btn btn-outline-primary bootKnop" @click="chooseBoat" :value="boot.id" v-model="newReservaties.boten_id"/>
                             </td>
-                            <td>{{clickedBoats}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -60,7 +59,6 @@
             <div class="form-group flexButton">
                 <button type="reset" class="btn btn-secondary" id="sendMessageButton">Reset</button>
                 <button type="submit" class="btn btn-primary" id="sendMessageButton" @click="next">
-                    <!-- <router-link to="/persoon">Volgende</router-link> -->
                 </button>
             </div>
         </div>
@@ -114,30 +112,17 @@
                         <p>Telefoon: {{newKlanten.telefoon}}</p>
                         <p>E-mail: {{newKlanten.email}}</p>
                     </section>
-                    <!-- <section>
-                        <h2>Boot</h2>
-                        <p>Naam Boot:</p>
-                        <p>Aantal personen:</p>
-                    </section> -->
-
                 </div>
                 <section class="col-md-4 order-md-2 mb-4">
                     <h4 class="text-muted">Je gekozen boten</h4>
                     <ul class="list-group mb-3">
-                        <li class="list-group-item d-flex justify-content-between lh-condensed" v-for="number in clickedBoats">
+                        <li class="list-group-item d-flex justify-content-between lh-condensed" v-for="number in newReservaties.boten_id">
                             <div>
                                 <h5 class="my-0">Boot {{boten[number].id}}</h5>
                                 <small class="text-muted">boot voor {{boten[number].aantal_plaatsen}} personen</small>
                             </div>
                             <span class="text-muted">€{{boten[number].prijs}}</span>
                         </li>
-                        <!-- <li class="list-group-item d-flex justify-content-between lh-condensed">
-                            <div>
-                                <h5 class="my-0">Boot 2</h5>
-                                <small class="text-muted">boot voor 2 personen</small>
-                            </div>
-                            <span class="text-muted">€5</span>
-                        </li> -->
                     </ul>
                     <hr>
                     <div class=" d-flex justify-content-between lh-condensed">
@@ -156,7 +141,6 @@
                         </button>
                         <button type="submit" class="btn btn-primary" id="sendMessageButton" @click="showMessage">
                             {{showMessages}}
-                            <!-- <router-link to="/overzicht" >Checkout</router-link> -->
                         </button>
                     </div>
                 </div>
@@ -167,6 +151,7 @@
     </div>
 </template>
 <script>
+ import * as moment from 'moment/moment';
     export default {
         data() {
             return {
@@ -174,20 +159,29 @@
                 gesloten: [],
                 tijdsloten: [],
                 klanten: [],
+                reservaties: [],
                 newKlanten: {
-                    'aanvoornaam': '',
+                    'voornaam': '',
                     'naam': '',
                     'email': '',
                     'telefoon': '',
                     'companies_id': 1
                 },
-                pickedDate: null,
+                newReservaties: {
+                    'boten_id': [],
+                    'tijdsloten_id': null,
+                    'klanten_id': null,
+                    'datum': null
+                },
+                pickedDate: false,
+                dayOfWeek: null,
                 selectedButton: false,
                 showMessages: false,
                 nextPage: false,
                 pageNext: false,
                 firstPage: true,
-                clickedBoats: []
+                clickedBoats: null,
+                klant_id: null
             }
         },
         mounted() {
@@ -199,6 +193,7 @@
                 this.getGesloten();
                 this.getTijdsloten();
                 this.getKlanten();
+                this.getReservaties();
             },
             getBoten() {
                 axios.get('/boten')
@@ -211,6 +206,13 @@
                 axios.get('/klanten')
                     .then(response => {
                         this.klanten = response.data;
+                        console.log(response.data);
+                    });
+            },
+            getReservaties() {
+                axios.get('/reservaties')
+                    .then(response => {
+                        this.reservaties = response.data;
                         console.log(response.data);
                     });
             },
@@ -246,9 +248,27 @@
                         }
                     })
             },
+            storeNewReservaties() {
+                this.persistStoreNewKlanten(
+                    'post', '/reservaties', this.newReservaties
+                );
+            },
+            persistStoreNewKlanten(method, uri, form) {
+                axios[method](uri, form)
+                    .then(response => {
+                        this.getReservaties();
+                    })
+                    .catch(error => {
+                        if (typeof error.response.data === 'object') {
+                            console.log(_.flatten(_.toArray(error.response.data)));
+                        } else {
+                            console.log(['Something went wrong, please try again']);
+                        }
+                    })
+            },
             showMessage() {
                 this.showMessages = true;
-                this.storeNewKlanten();
+                this.storeNewReservaties();
             },
             next() {
                 this.nextPage = true;
@@ -256,10 +276,20 @@
             },
             volgende() {
                 this.pageNext = true;
+                this.storeNewKlanten();
+                this.klant_id = this.klanten[this.klanten.length - 1].id;
+                console.log(this.klant_id);
+                this.nextPage = false;
             },
             chooseBoat(event){
-                this.clickedBoats.push(event.srcElement.id);
+                this.clickedBoats = event.srcElement.id;
                 console.log(this.clickedBoats);
+            },
+            moment(){
+                this.pickedDate = true;
+                this.dayOfWeek = moment(moment(this.newReservaties.datum)).locale('nl-be').format('dddd');
+                // this.newReservaties.datum = moment().locale('en-ca').format('L');
+                console.log(this.dayOfWeek);
             }
         }
     }

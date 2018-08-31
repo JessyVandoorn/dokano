@@ -25,6 +25,9 @@ Auth::routes();
 Route::get('/gesloten', 'GeslotenController@index');
 Route::post('gesloten', 'GeslotenController@store');
 
+Route::get('/reservaties', 'ReservatiesController@index');
+Route::post('reservaties', 'ReservatiesController@store');
+
 Route::get('/klanten', 'KlantenController@index');
 Route::post('/klanten', 'KlantenController@store');
 Route::get('/klanten/{id}', 'KlantenController@show');

@@ -46,6 +46,7 @@
                                         <th>Max aantal kids</th>
                                         <th>Type</th>
                                         <th>Prijs</th>
+                                        <th>Verwijderen</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -55,6 +56,7 @@
                                         <td>{{item.max_kids}}</td>
                                         <td>{{item.types_id}}</td>
                                         <td>{{item.prijs}}</td>
+                                        <td><button @click="removeBoot(item)">Verwijderen</button></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -74,7 +76,8 @@
                                     <div class="control-group form-group">
                                         <div class="controls">
                                             <label for="aantal_plaatsen">Aantal plaatsen:</label>
-                                            <input id="aantal_plaatsen" v-model="newBoot.aantal_plaatsen" name="aantal_plaatsen" type="number" class="form-control" required
+                                            <input id="aantal_plaatsen" v-model="newBoot.aantal_plaatsen" name="aantal_plaatsen"
+                                                type="number" class="form-control" required
                                                 data-validation-required-message="Please enter your name.">
                                             <p class="help-block"></p>
                                         </div>
@@ -82,35 +85,40 @@
                                     <div class="control-group form-group">
                                         <div class="controls">
                                             <label for="max_kinds">Max aantal kinderen:</label>
-                                            <input id="max_kids" type="number" v-model="newBoot.max_kids" name="max_kids" class="form-control" required data-validation-required-message="Please enter your name.">
+                                            <input id="max_kids" type="number" v-model="newBoot.max_kids" name="max_kids"
+                                                class="form-control" required data-validation-required-message="Please enter your name.">
                                             <p class="help-block"></p>
                                         </div>
                                     </div>
                                     <div class="control-group form-group">
                                         <div class="controls">
                                             <label for="types_id">Type:</label>
-                                            <input id="types_id" name="types_id" type="number" v-model="newBoot.types_id" class="form-control" required data-validation-required-message="Please enter your name.">
+                                            <input id="types_id" name="types_id" type="number" v-model="newBoot.types_id"
+                                                class="form-control" required data-validation-required-message="Please enter your name.">
                                             <p class="help-block"></p>
                                         </div>
                                     </div>
                                     <div class="control-group form-group">
                                         <div class="controls">
                                             <label for="prijs">Prijs:</label>
-                                            <input id="prijs" name="prijs" type="number" v-model="newBoot.prijs" class="form-control" required data-validation-required-message="Please enter your name.">
+                                            <input id="prijs" name="prijs" type="number" v-model="newBoot.prijs" class="form-control"
+                                                required data-validation-required-message="Please enter your name.">
                                             <p class="help-block"></p>
                                         </div>
                                     </div>
                                     <div class="control-group form-group">
                                         <div class="controls">
                                             <label for="aantal_beschikbaar">Aantal beschikbaar:</label>
-                                            <input id="aantal_beschikbaar" v-model="newBoot.aantal_beschikbaar" name="aantal_beschikbaar" type="number" class="form-control"
-                                                required data-validation-required-message="Please enter your name.">
+                                            <input id="aantal_beschikbaar" v-model="newBoot.aantal_beschikbaar" name="aantal_beschikbaar"
+                                                type="number" class="form-control" required
+                                                data-validation-required-message="Please enter your name.">
                                             <p class="help-block"></p>
                                         </div>
                                     </div>
                                     <div id="success"></div>
                                     <!-- For success/fail messages -->
-                                    <button type="submit" class="btn btn-primary" id="sendMessageButton" @click="storeNewBoot">Voeg boot toe</button>
+                                    <button type="submit" class="btn btn-primary" id="sendMessageButton" @click="storeNewBoot">Voeg
+                                        boot toe</button>
                                 </form>
                             </div>
                         </div>
@@ -127,25 +135,32 @@
                                         <div class="controls dagen">
 
                                             <label for="maandag" class="weekDagen">Maandag
-                                                <input type="checkbox" class="form-control" v-model="newTijdsloten.dagen" id="maandag" value="maandag">
+                                                <input type="checkbox" class="form-control" v-model="newTijdsloten.dagen"
+                                                    id="maandag" value="maandag">
                                             </label>
                                             <label class="weekDagen" for="dinsdag">Dinsdag
-                                                <input type="checkbox" class="form-control" id="dinsdag" v-model="newTijdsloten.dagen" value="dinsdag">
+                                                <input type="checkbox" class="form-control" id="dinsdag" v-model="newTijdsloten.dagen"
+                                                    value="dinsdag">
                                             </label>
                                             <label for="woensdag" class="weekDagen">Woensdag
-                                                <input type="checkbox" class="form-control" id="woensdag"  v-model="newTijdsloten.dagen" value="woensdag">
+                                                <input type="checkbox" class="form-control" id="woensdag" v-model="newTijdsloten.dagen"
+                                                    value="woensdag">
                                             </label>
                                             <label class="weekDagen" for="donderdag">Donderdag
-                                                <input type="checkbox" class="form-control" id="donderdag" v-model="newTijdsloten.dagen" value="donderdag">
+                                                <input type="checkbox" class="form-control" id="donderdag" v-model="newTijdsloten.dagen"
+                                                    value="donderdag">
                                             </label>
                                             <label class="weekDagen" for="vrijdag">Vrijdag
-                                                <input type="checkbox" class="form-control" id="vrijdag" v-model="newTijdsloten.dagen" value="vrijdag">
+                                                <input type="checkbox" class="form-control" id="vrijdag" v-model="newTijdsloten.dagen"
+                                                    value="vrijdag">
                                             </label>
                                             <label class="weekDagen" for="zaterdag">Zaterdag
-                                                <input type="checkbox" class="form-control" id="zaterdag" v-model="newTijdsloten.dagen" value="zaterdag">
+                                                <input type="checkbox" class="form-control" id="zaterdag" v-model="newTijdsloten.dagen"
+                                                    value="zaterdag">
                                             </label>
                                             <label class="weekDagen" for="zondag">Zondag
-                                                <input type="checkbox" class="form-control" id="zondag" v-model="newTijdsloten.dagen" value="zondag">
+                                                <input type="checkbox" class="form-control" id="zondag" v-model="newTijdsloten.dagen"
+                                                    value="zondag">
                                             </label>
                                             <p class="help-block"></p>
                                         </div>
@@ -153,20 +168,23 @@
                                     <div class="control-group form-group">
                                         <div class="controls">
                                             <label for="startUur">Start uur:</label>
-                                            <input type="time" class="form-control" v-model="newTijdsloten.uur_start" id="startuur" required data-validation-required-message="Please enter your name.">
+                                            <input type="time" class="form-control" v-model="newTijdsloten.uur_start"
+                                                id="startuur" required data-validation-required-message="Please enter your name.">
                                             <p class="help-block"></p>
                                         </div>
                                     </div>
                                     <div class="control-group form-group">
                                         <div class="controls">
                                             <label for="eindUur">Eind uur:</label>
-                                            <input type="time" class="form-control" v-model="newTijdsloten.uur_eind" id="eindUur" required data-validation-required-message="Please enter your name.">
+                                            <input type="time" class="form-control" v-model="newTijdsloten.uur_eind" id="eindUur"
+                                                required data-validation-required-message="Please enter your name.">
                                             <p class="help-block"></p>
                                         </div>
                                     </div>
                                     <div id="success"></div>
                                     <!-- For success/fail messages -->
-                                    <button type="submit" class="btn btn-primary" id="sendMessageButton" @click="storeNewTijdsloten">Voeg tijdslot toe</button>
+                                    <button type="submit" class="btn btn-primary" id="sendMessageButton" @click="storeNewTijdsloten">Voeg
+                                        tijdslot toe</button>
                                 </form>
                             </div>
                         </div>
@@ -184,7 +202,7 @@
                                                 <input id="dag" type="checkbox" @click="checkBoxToggle" v-model="newGesloten.dag">
                                             </label>
                                             <label for="periode">Periode
-                                                <input id="periode" type="checkbox"  @click="checkBoxToggle" v-model="newGesloten.periode">
+                                                <input id="periode" type="checkbox" @click="checkBoxToggle" v-model="newGesloten.periode">
                                             </label>
                                             <p class="help-block"></p>
                                         </div>
@@ -192,7 +210,8 @@
                                     <div id="enkeleDag" class="control-group form-group" v-if="newGesloten.dag">
                                         <div class="controls">
                                             <label for="keuzeDag">Keuze dag</label>
-                                            <input type="date" class="form-control" id="keuzeDag" required data-validation-required-message="Please enter your name." v-model="newGesloten.date1">
+                                            <input type="date" class="form-control" id="keuzeDag" required
+                                                data-validation-required-message="Please enter your name." v-model="newGesloten.date1">
                                             <p class="help-block"></p>
                                         </div>
                                     </div>
@@ -211,7 +230,8 @@
                                     </div>
                                     <div id="success"></div>
                                     <!-- For success/fail messages -->
-                                    <button type="submit" class="btn btn-primary" id="sendMessageButton" @click="storeNewGesloten">Voeg sluitdagen toe</button>
+                                    <button type="submit" class="btn btn-primary" id="sendMessageButton" @click="storeNewGesloten">Voeg
+                                        sluitdagen toe</button>
                                 </form>
                             </div>
                         </div>
@@ -239,7 +259,7 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="dag in tijdsloten" v-if="dag.dagen === weekdagSelected">
-                                        <td >{{dag.uur_start}} - {{dag.uur_eind}}</td>
+                                        <td>{{dag.uur_start}} - {{dag.uur_eind}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -268,7 +288,8 @@
         </a>
 
         <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -344,7 +365,7 @@
                         console.log(response.data);
                     });
             },
-             getGesloten() {
+            getGesloten() {
                 axios.get('/gesloten')
                     .then(response => {
                         this.gesloten = response.data;
@@ -394,7 +415,7 @@
                         }
                     })
             },
-            storeNewGesloten(){
+            storeNewGesloten() {
                 this.persistStoreNewGesloten(
                     'post', '/gesloten', this.newGesloten
                 );
@@ -416,10 +437,15 @@
                 console.log(event.target);
                 this.$emit("input", event.target.checked)
             },
-            toggleDag(dag){
+            toggleDag(dag) {
                 this.weekdagSelected = dag;
                 console.log(dag);
+            },
+            removeBoot(item) {
+                this.boten.splice(this.boten.indexOf(item), 1);
+                // this.counter--;
             }
         }
     }
+
 </script>

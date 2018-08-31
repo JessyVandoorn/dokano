@@ -120,10 +120,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Jessy Vandoorn</td>
-                                            <td>056 25 79 04</td>
-                                            <td>test@test.be</td>
+                                        <tr v-for="reservatie in reservaties">
+                                            <td>{{reservatie.voornaam}} {{reservatie.naam}}</td>
+                                            <td>{{reservatie.telefoon}}</td>
+                                            <td>{{reservatie.email}}</td>
                                             <td>10</td>
                                             <td>2</td>
                                             <td>
@@ -138,7 +138,7 @@
                     </div>
     
                     <!-- DataTables Example -->
-                    <div class="card mb-3">
+                    <!-- <div class="card mb-3">
                         <div class="card-header">
                             <i class="fas fa-table"></i> Dag overzicht</div>
                         <div class="card-body">
@@ -216,7 +216,43 @@
                             </div>
                         </div>
                         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                    </div> -->
+
+                    <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fas fa-table"></i>
+                        Tijdsloten per dag</div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <button @click="toggleVandaag">Vandaag</button>
+                            <button @click="toggleMorgen">Morgen</button>
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>{{date}}</th>
+                                        <!-- <th>Dinsdag</th>
+                                        <th>Woensdag</th>
+                                        <th>Donderdag</th>
+                                        <th>Vrijdag</th>
+                                        <th>Zaterdag</th>
+                                        <th>Zondag</th> -->
+                                        <th>Boten</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="sloten in reservaties" v-if="sloten.datum === dateNow">
+                                        <td >{{sloten.uur_start}} - {{sloten.uur_eind}}</td>
+                                        <td>{{sloten.id}}</td>
+                                    </tr>
+                                    <tr v-else="sloten.datum !== dateNow">
+                                        <td v-once>Vandaag zijn we gesloten</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                </div>
     
                 </div>
                 <!-- /.container-fluid -->
@@ -241,3 +277,81 @@
         </a>
     </div>
 </template>
+<script>
+import * as moment from 'moment/moment';
+    export default {
+        data() {
+            return {
+                boten: [],
+                gesloten: [],
+                tijdsloten: [],
+                klanten: [],
+                reservaties: [],
+                dateNow: '',
+                date: ''
+            }
+        },
+        mounted() {
+            this.prepareComponent();
+        },
+        methods: {
+            prepareComponent() {
+                this.getBoten();
+                this.getGesloten();
+                this.getTijdsloten();
+                this.getKlanten();
+                this.getReservaties();
+                this.getTime();
+            },
+            getBoten() {
+                axios.get('/boten')
+                    .then(response => {
+                        this.boten = response.data;
+                        console.log(response.data);
+                    });
+            },
+            getKlanten() {
+                axios.get('/klanten')
+                    .then(response => {
+                        this.klanten = response.data;
+                        console.log(response.data);
+                    });
+            },
+            getReservaties() {
+                axios.get('/reservaties')
+                    .then(response => {
+                        this.reservaties = response.data;
+                        console.log(response.data);
+                    });
+            },
+            getGesloten() {
+                axios.get('/gesloten')
+                    .then(response => {
+                        this.gesloten = response.data;
+                        console.log(response.data);
+                    });
+            },
+            getTijdsloten() {
+                axios.get('/tijdsloten')
+                    .then(response => {
+                        this.tijdsloten = response.data;
+                        console.log(response.data);
+                    });
+            },
+            getTime(){
+                let self = this;
+                this.date = moment().locale('nl-be').format('ll');
+            },
+            toggleVandaag(){
+                this.dateNow = moment().locale('en-ca').format('L');
+                this.date = moment().locale('nl-be').format('ll');
+                console.log(this.dateNow);
+            },
+            toggleMorgen(){
+                this.dateNow = moment().add(1,'days').locale('en-ca').format('L');
+                this.date = moment().add(1,'days').locale('nl-bee').format('ll');
+            }
+        }
+    }
+
+</script>
