@@ -36,5 +36,6 @@ Route::get('/tijdsloten', 'TijdslotenController@index');
 Route::post('tijdsloten', 'TijdslotenController@store');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
 Route::get('/inkomsten', 'InkomstenController@index')->name('inkomsten');
 Route::get('/instellingen', 'InstellingenController@index')->name('instellingen');

@@ -3,22 +3,16 @@
         <div id="wrapper">
             <ul class="sidebar navbar-nav">
                 <li class="nav-item">
-                    <!-- <a class="nav-link" href="inkomsten.html"> -->
                     <i class="fas fa-fw fa-chart-area"></i>
                     <router-link to="/">Home</router-link>
-                    <!-- <a class="nav-link" href="{{ route('home') }}">{{ __('Dashboard') }}</a> -->
                 </li>
                 <li class="nav-item">
-                    <!-- <a class="nav-link" href="inkomsten.html"> -->
                     <i class="fas fa-fw fa-chart-area"></i>
                     <router-link to="/instellingen">Instellingen</router-link>
-                    <!-- <a class="nav-link" href="{{ route('inkomsten') }}">{{ __('Inkomsten') }}</a> -->
                 </li>
                 <li class="nav-item">
-                    <!-- <a class="nav-link" href="instellingen.html"> -->
                     <i class="fas fa-fw fa-table"></i>
                     <router-link to="/inkomsten">Inkomsten</router-link>
-                    <!-- <a class="nav-link" href="{{ route('instellingen') }}">{{ __('Instellingen') }}</a> -->
                 </li>
             </ul>
     
@@ -47,8 +41,8 @@
                                 <a class="card-footer text-white clearfix small z-1" href="#">
                                     <span class="float-left">View Details</span>
                                     <span class="float-right">
-                                        <i class="fas fa-angle-right"></i>
-                                    </span>
+                                            <i class="fas fa-angle-right"></i>
+                                        </span>
                                 </a>
                             </div>
                         </div>
@@ -63,8 +57,8 @@
                                 <a class="card-footer text-white clearfix small z-1" href="#">
                                     <span class="float-left">View Details</span>
                                     <span class="float-right">
-                                        <i class="fas fa-angle-right"></i>
-                                    </span>
+                                            <i class="fas fa-angle-right"></i>
+                                        </span>
                                 </a>
                             </div>
                         </div>
@@ -79,8 +73,8 @@
                                 <a class="card-footer text-white clearfix small z-1" href="#">
                                     <span class="float-left">View Details</span>
                                     <span class="float-right">
-                                        <i class="fas fa-angle-right"></i>
-                                    </span>
+                                            <i class="fas fa-angle-right"></i>
+                                        </span>
                                 </a>
                             </div>
                         </div>
@@ -95,8 +89,8 @@
                                 <a class="card-footer text-white clearfix small z-1" href="#">
                                     <span class="float-left">View Details</span>
                                     <span class="float-right">
-                                        <i class="fas fa-angle-right"></i>
-                                    </span>
+                                            <i class="fas fa-angle-right"></i>
+                                        </span>
                                 </a>
                             </div>
                         </div>
@@ -114,18 +108,27 @@
                                             <td>Naam</td>
                                             <td>Telefoon</td>
                                             <td>Email</td>
-                                            <td>Aantal personen</td>
-                                            <td>Aantal boten</td>
+                                            <td>Personen/boot</td>
+                                            <td>Boten</td>
                                             <td>Aanwezig</td>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="reservatie in reservaties">
-                                            <td>{{reservatie.voornaam}} {{reservatie.naam}}</td>
-                                            <td>{{reservatie.telefoon}}</td>
-                                            <td>{{reservatie.email}}</td>
-                                            <td>10</td>
-                                            <td>2</td>
+                                        <tr v-for="reservatie in list">
+                                            <td>{{reservatie.klant.voornaam}} {{reservatie.klant.naam}}</td>
+                                            <td>{{reservatie.klant.telefoon}}</td>
+                                            <td>{{reservatie.klant.email}}</td>
+                                            <td>
+                                                <template v-if="reservatie.boten" v-for="boot in reservatie.boten">
+                                                    {{ boot.aantal_plaatsen}}<br/>
+                                                </template>
+                                            </td>
+                                            <td>
+                                                <template v-for="boot in reservatie.boten">
+                                                    {{boot.boten_id}}
+                                                    <br/>
+                                                </template>
+                                            </td>
                                             <td>
                                                 <input type="checkbox">
                                             </td>
@@ -136,127 +139,49 @@
                         </div>
                         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                     </div>
-    
-                    <!-- DataTables Example -->
-                    <!-- <div class="card mb-3">
+
+                    <div class="card mb-3">
                         <div class="card-header">
-                            <i class="fas fa-table"></i> Dag overzicht</div>
+                            <i class="fas fa-table"></i>
+                            Tijdsloten per dag</div>
                         <div class="card-body">
                             <div class="table-responsive">
+                                <button @click="toggleVandaag">Vandaag</button>
+                                <button @click="toggleMorgen">Morgen</button>
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th></th>
-                                            <th>Boot 1</th>
-                                            <th>Boot 2</th>
-                                            <th>Boot 3</th>
-                                            <th>Boot 4</th>
-                                            <th>Boot 5</th>
+                                            <th>{{date}}</th>
+                                            <th>Boten</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <template v-for="sloten in list" v-if="sloten.klant.datum === dateNow">
+                                            <tr>
+                                                <td>{{sloten.klant.uur_start}} - {{sloten.klant.uur_eind}}</td>
+                                                <td>
+                                                    <template v-for="boot in sloten.boten">
+                                                        {{boot.boten_id}}
+                                                        <br/>
+                                                    </template>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                        <template v-else>
                                         <tr>
-                                            <td>9u</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td v-once>Vandaag zijn we gesloten</td>
                                         </tr>
-                                        <tr>
-                                            <td>9u30</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>10u</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>10u30</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>11u</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>11u30</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>12u</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
+                                        </template>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-                    </div> -->
-
-                    <div class="card mb-3">
-                    <div class="card-header">
-                        <i class="fas fa-table"></i>
-                        Tijdsloten per dag</div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <button @click="toggleVandaag">Vandaag</button>
-                            <button @click="toggleMorgen">Morgen</button>
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th>{{date}}</th>
-                                        <!-- <th>Dinsdag</th>
-                                        <th>Woensdag</th>
-                                        <th>Donderdag</th>
-                                        <th>Vrijdag</th>
-                                        <th>Zaterdag</th>
-                                        <th>Zondag</th> -->
-                                        <th>Boten</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="sloten in reservaties" v-if="sloten.datum === dateNow">
-                                        <td >{{sloten.uur_start}} - {{sloten.uur_eind}}</td>
-                                        <td>{{sloten.id}}</td>
-                                    </tr>
-                                    <tr v-else="sloten.datum !== dateNow">
-                                        <td v-once>Vandaag zijn we gesloten</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
-                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-                </div>
-    
+
                 </div>
                 <!-- /.container-fluid -->
-    
+
                 <!-- Sticky Footer -->
                 <footer class="sticky-footer">
                     <div class="container my-auto">
@@ -265,20 +190,21 @@
                         </div>
                     </div>
                 </footer>
-    
+
             </div>
             <!-- /.content-wrapper -->
-    
+
         </div>
-    
+
         <!-- Scroll to Top Button-->
         <a class="scroll-to-top rounded" href="#page-top">
             <i class="fas fa-angle-up"></i>
         </a>
     </div>
 </template>
+
 <script>
-import * as moment from 'moment/moment';
+    import * as moment from 'moment/moment';
     export default {
         data() {
             return {
@@ -286,9 +212,10 @@ import * as moment from 'moment/moment';
                 gesloten: [],
                 tijdsloten: [],
                 klanten: [],
-                reservaties: [],
+                list: [],
                 dateNow: '',
-                date: ''
+                date: '',
+                total: null
             }
         },
         mounted() {
@@ -320,7 +247,7 @@ import * as moment from 'moment/moment';
             getReservaties() {
                 axios.get('/reservaties')
                     .then(response => {
-                        this.reservaties = response.data;
+                        this.list = response.data;
                         console.log(response.data);
                     });
             },
@@ -338,20 +265,19 @@ import * as moment from 'moment/moment';
                         console.log(response.data);
                     });
             },
-            getTime(){
+            getTime() {
                 let self = this;
                 this.date = moment().locale('nl-be').format('ll');
             },
-            toggleVandaag(){
+            toggleVandaag() {
                 this.dateNow = moment().locale('en-ca').format('L');
                 this.date = moment().locale('nl-be').format('ll');
                 console.log(this.dateNow);
             },
-            toggleMorgen(){
-                this.dateNow = moment().add(1,'days').locale('en-ca').format('L');
-                this.date = moment().add(1,'days').locale('nl-bee').format('ll');
+            toggleMorgen() {
+                this.dateNow = moment().add(1, 'days').locale('en-ca').format('L');
+                this.date = moment().add(1, 'days').locale('nl-be').format('ll');
             }
         }
     }
-
 </script>

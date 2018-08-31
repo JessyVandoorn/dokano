@@ -17,11 +17,43 @@ class ReservatiesController extends Controller
     public function index()
     {
         // $reservaties = DB::table('reservaties')->select('reservaties.*')->get();
-        $reservaties = DB::table('reservaties')->join('klanten', 'reservaties.klanten_id', '=', 'klanten.id')->join('boten', 'reservaties.boten_id', '=', 'boten.id')->join('tijdsloten', 'reservaties.tijdsloten_id', '=', 'tijdsloten.id')->select('reservaties.id', 'klanten.id', 'klanten.naam', 'klanten.voornaam','klanten.telefoon', 'klanten.email' ,'boten.aantal_plaatsen', 'tijdsloten.uur_start', 'tijdsloten.uur_eind', 'reservaties.datum', 'boten.id')->get();
+        $reservaties = DB::table('reservaties')->join('klanten', 'reservaties.klanten_id', '=', 'klanten.id')->join('boten', 'reservaties.boten_id', '=', 'boten.id')->join('tijdsloten', 'reservaties.tijdsloten_id', '=', 'tijdsloten.id')->select('reservaties.id as reservatie_id', 'klanten.id as klanten_id', 'klanten.naam', 'klanten.voornaam','klanten.telefoon', 'klanten.email' ,'boten.aantal_plaatsen', 'tijdsloten.uur_start', 'tijdsloten.uur_eind', 'reservaties.datum', 'boten.id as boten_id')->get();
 
-        return $reservaties;
+        $previous_id = '';
+        $list = Array();
+        $reservatie_item = Array();
+        $boten = Array();
+        foreach($reservaties as $item){
+            if($item->klanten_id == $previous_id){
+                $boten[] = $item;
+            } else {
+                if($previous_id == ''){
 
-        var_dump($reservaties);
+                } else {
+                    $reservatie_item['boten'] = $boten;
+
+                    $list[] = $reservatie_item;
+
+                }
+                
+                $reservatie_item = Array();
+                $boten = Array();
+                
+                $reservatie_item['klant'] = $item;
+                $boten[] = $item; 
+            }
+            $previous_id = $item->klanten_id;
+        }
+
+        $reservatie_item['boten'] = $boten;
+
+        $list[] = $reservatie_item;
+
+        Log::warning($list);
+
+        return $list;
+
+        var_dump($list);
     }
 
     /**

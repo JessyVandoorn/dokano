@@ -66332,80 +66332,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -66415,9 +66341,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             gesloten: [],
             tijdsloten: [],
             klanten: [],
-            reservaties: [],
+            list: [],
             dateNow: '',
-            date: ''
+            date: '',
+            total: null
         };
     },
     mounted: function mounted() {
@@ -66453,7 +66380,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this3 = this;
 
             axios.get('/reservaties').then(function (response) {
-                _this3.reservaties = response.data;
+                _this3.list = response.data;
                 console.log(response.data);
             });
         },
@@ -66484,7 +66411,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         toggleMorgen: function toggleMorgen() {
             this.dateNow = __WEBPACK_IMPORTED_MODULE_0_moment_moment__().add(1, 'days').locale('en-ca').format('L');
-            this.date = __WEBPACK_IMPORTED_MODULE_0_moment_moment__().add(1, 'days').locale('nl-bee').format('ll');
+            this.date = __WEBPACK_IMPORTED_MODULE_0_moment_moment__().add(1, 'days').locale('nl-be').format('ll');
         }
     }
 });
@@ -66828,23 +66755,54 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "tbody",
-                      _vm._l(_vm.reservaties, function(reservatie) {
+                      _vm._l(_vm.list, function(reservatie) {
                         return _c("tr", [
                           _c("td", [
                             _vm._v(
-                              _vm._s(reservatie.voornaam) +
+                              _vm._s(reservatie.klant.voornaam) +
                                 " " +
-                                _vm._s(reservatie.naam)
+                                _vm._s(reservatie.klant.naam)
                             )
                           ]),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(reservatie.telefoon))]),
+                          _c("td", [_vm._v(_vm._s(reservatie.klant.telefoon))]),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(reservatie.email))]),
+                          _c("td", [_vm._v(_vm._s(reservatie.klant.email))]),
                           _vm._v(" "),
-                          _c("td", [_vm._v("10")]),
+                          _c(
+                            "td",
+                            [
+                              _vm._l(reservatie.boten, function(boot) {
+                                return reservatie.boten
+                                  ? [
+                                      _vm._v(
+                                        "\n                                                " +
+                                          _vm._s(boot.aantal_plaatsen)
+                                      ),
+                                      _c("br")
+                                    ]
+                                  : _vm._e()
+                              })
+                            ],
+                            2
+                          ),
                           _vm._v(" "),
-                          _c("td", [_vm._v("2")]),
+                          _c(
+                            "td",
+                            [
+                              _vm._l(reservatie.boten, function(boot) {
+                                return [
+                                  _vm._v(
+                                    "\n                                                " +
+                                      _vm._s(boot.boten_id) +
+                                      "\n                                                "
+                                  ),
+                                  _c("br")
+                                ]
+                              })
+                            ],
+                            2
+                          ),
                           _vm._v(" "),
                           _vm._m(4, true)
                         ])
@@ -66890,21 +66848,41 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "tbody",
-                      _vm._l(_vm.reservaties, function(sloten) {
-                        return sloten.datum === _vm.dateNow
-                          ? _c("tr", [
-                              _c("td", [
-                                _vm._v(
-                                  _vm._s(sloten.uur_start) +
-                                    " - " +
-                                    _vm._s(sloten.uur_eind)
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(sloten.id))])
-                            ])
-                          : _c("tr", [_vm._m(6)])
-                      })
+                      [
+                        _vm._l(_vm.list, function(sloten) {
+                          return sloten.klant.datum === _vm.dateNow
+                            ? [
+                                _c("tr", [
+                                  _c("td", [
+                                    _vm._v(
+                                      _vm._s(sloten.klant.uur_start) +
+                                        " - " +
+                                        _vm._s(sloten.klant.uur_eind)
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    [
+                                      _vm._l(sloten.boten, function(boot) {
+                                        return [
+                                          _vm._v(
+                                            "\n                                                    " +
+                                              _vm._s(boot.boten_id) +
+                                              "\n                                                    "
+                                          ),
+                                          _c("br")
+                                        ]
+                                      })
+                                    ],
+                                    2
+                                  )
+                                ])
+                              ]
+                            : [_c("tr", [_vm._m(6)])]
+                        })
+                      ],
+                      2
                     )
                   ]
                 )
@@ -67092,9 +67070,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("td", [_vm._v("Email")]),
         _vm._v(" "),
-        _c("td", [_vm._v("Aantal personen")]),
+        _c("td", [_vm._v("Personen/boot")]),
         _vm._v(" "),
-        _c("td", [_vm._v("Aantal boten")]),
+        _c("td", [_vm._v("Boten")]),
         _vm._v(" "),
         _c("td", [_vm._v("Aanwezig")])
       ])
@@ -67112,7 +67090,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("i", { staticClass: "fas fa-table" }),
-      _vm._v("\n                    Tijdsloten per dag")
+      _vm._v("\n                        Tijdsloten per dag")
     ])
   },
   function() {
@@ -67208,29 +67186,6 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -67650,6 +67605,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         removeBoot: function removeBoot(item) {
             this.boten.splice(this.boten.indexOf(item), 1);
             // this.counter--;
+        },
+        removeSlot: function removeSlot(dag) {
+            this.tijdsloten.splice(this.tijdsloten.indexOf(dag), 1);
+            // this.counter--;
         }
     }
 });
@@ -67989,7 +67948,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "Voeg\n                                    boot toe"
+                        "Voeg\n                                        boot toe"
                       )
                     ]
                   )
@@ -68013,7 +67972,7 @@ var render = function() {
                         { staticClass: "weekDagen", attrs: { for: "maandag" } },
                         [
                           _vm._v(
-                            "Maandag\n                                            "
+                            "Maandag\n                                                "
                           ),
                           _c("input", {
                             directives: [
@@ -68075,7 +68034,7 @@ var render = function() {
                         { staticClass: "weekDagen", attrs: { for: "dinsdag" } },
                         [
                           _vm._v(
-                            "Dinsdag\n                                            "
+                            "Dinsdag\n                                                "
                           ),
                           _c("input", {
                             directives: [
@@ -68140,7 +68099,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "Woensdag\n                                            "
+                            "Woensdag\n                                                "
                           ),
                           _c("input", {
                             directives: [
@@ -68205,7 +68164,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "Donderdag\n                                            "
+                            "Donderdag\n                                                "
                           ),
                           _c("input", {
                             directives: [
@@ -68267,7 +68226,7 @@ var render = function() {
                         { staticClass: "weekDagen", attrs: { for: "vrijdag" } },
                         [
                           _vm._v(
-                            "Vrijdag\n                                            "
+                            "Vrijdag\n                                                "
                           ),
                           _c("input", {
                             directives: [
@@ -68332,7 +68291,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "Zaterdag\n                                            "
+                            "Zaterdag\n                                                "
                           ),
                           _c("input", {
                             directives: [
@@ -68394,7 +68353,7 @@ var render = function() {
                         { staticClass: "weekDagen", attrs: { for: "zondag" } },
                         [
                           _vm._v(
-                            "Zondag\n                                            "
+                            "Zondag\n                                                "
                           ),
                           _c("input", {
                             directives: [
@@ -68549,7 +68508,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "Voeg\n                                    tijdslot toe"
+                        "Voeg\n                                        tijdslot toe"
                       )
                     ]
                   )
@@ -68568,7 +68527,7 @@ var render = function() {
                     _c("div", { staticClass: "controls" }, [
                       _c("label", { attrs: { for: "dag" } }, [
                         _vm._v(
-                          "Dag\n                                            "
+                          "Dag\n                                                "
                         ),
                         _c("input", {
                           directives: [
@@ -68621,7 +68580,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("label", { attrs: { for: "periode" } }, [
                         _vm._v(
-                          "Periode\n                                            "
+                          "Periode\n                                                "
                         ),
                         _c("input", {
                           directives: [
@@ -68740,7 +68699,7 @@ var render = function() {
                             _vm._v(" "),
                             _c("label", { attrs: { for: "startPeriode" } }, [
                               _vm._v(
-                                "Start date\n                                            "
+                                "Start date\n                                                "
                               ),
                               _c("input", {
                                 directives: [
@@ -68770,7 +68729,7 @@ var render = function() {
                             _vm._v(" "),
                             _c("label", { attrs: { for: "eindPeriode" } }, [
                               _vm._v(
-                                "\n                                            End date\n                                            "
+                                "\n                                                End date\n                                                "
                               ),
                               _c("input", {
                                 directives: [
@@ -68815,7 +68774,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "Voeg\n                                    sluitdagen toe"
+                        "Voeg\n                                        sluitdagen toe"
                       )
                     ]
                   )
@@ -68868,7 +68827,9 @@ var render = function() {
                             }
                           },
                           [_vm._v(_vm._s(_vm.weekdagSelected))]
-                        )
+                        ),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Verwijderen")])
                       ])
                     ]),
                     _vm._v(" "),
@@ -68882,6 +68843,20 @@ var render = function() {
                                   _vm._s(dag.uur_start) +
                                     " - " +
                                     _vm._s(dag.uur_eind)
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c(
+                                  "button",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.removeSlot(dag)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Verwijderen")]
                                 )
                               ])
                             ])
@@ -68932,7 +68907,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("i", { staticClass: "fas fa-chart-area" }),
-      _vm._v("\n                    Area Chart Example")
+      _vm._v(" Area Chart Example")
     ])
   },
   function() {
@@ -68961,7 +68936,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("i", { staticClass: "fas fa-table" }),
-      _vm._v("\n                            Boten")
+      _vm._v(" Boten\n                        ")
     ])
   },
   function() {
@@ -68970,7 +68945,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("i", { staticClass: "fas fa-table" }),
-      _vm._v("\n                            Tijdssloten")
+      _vm._v(" Tijdssloten\n                        ")
     ])
   },
   function() {
@@ -68979,7 +68954,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("i", { staticClass: "fas fa-table" }),
-      _vm._v("\n                            Gesloten")
+      _vm._v(" Gesloten\n                        ")
     ])
   },
   function() {
@@ -68988,7 +68963,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("i", { staticClass: "fas fa-table" }),
-      _vm._v("\n                    Tijdsloten overzicht")
+      _vm._v(" Tijdsloten overzicht")
     ])
   },
   function() {
@@ -69606,6 +69581,61 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -69621,7 +69651,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 'naam': '',
                 'email': '',
                 'telefoon': '',
-                'companies_id': 1
+                'companies_id': 1,
+                'opmerkingen': '',
+                'vat': null,
+                'number': null,
+                'city': null,
+                'company_name': null,
+                'street': null,
+                'zip': null,
+                'country': null
             },
             newReservaties: {
                 'boten_id': [],
@@ -69637,13 +69675,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             pageNext: false,
             firstPage: true,
             clickedBoats: null,
-            klant_id: null
+            klant_id: null,
+            totaalPrijs: null,
+            factuurCheck: false
         };
     },
     mounted: function mounted() {
         this.prepareComponent();
     },
 
+    computed: {
+        total: function total() {
+            var _this = this;
+
+            this.newReservaties.boten_id.forEach(function (boot) {
+                var prijs = _this.boten[boot - 1].prijs;
+                _this.totaalPrijs += prijs;
+                console.log(prijs);
+            });
+
+            return this.totaalPrijs;
+        }
+    },
     methods: (_methods = {
         prepareComponent: function prepareComponent() {
             this.getBoten();
@@ -69653,53 +69706,48 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             this.getReservaties();
         },
         getBoten: function getBoten() {
-            var _this = this;
+            var _this2 = this;
 
             axios.get('/boten').then(function (response) {
-                _this.boten = response.data;
-                console.log(response.data);
+                _this2.boten = response.data;
             });
         },
         getKlanten: function getKlanten() {
-            var _this2 = this;
+            var _this3 = this;
 
             axios.get('/klanten').then(function (response) {
-                _this2.klanten = response.data;
-                console.log(response.data);
+                _this3.klanten = response.data;
             });
         },
         getReservaties: function getReservaties() {
-            var _this3 = this;
+            var _this4 = this;
 
             axios.get('/reservaties').then(function (response) {
-                _this3.reservaties = response.data;
-                console.log(response.data);
+                _this4.reservaties = response.data;
             });
         },
         getGesloten: function getGesloten() {
-            var _this4 = this;
+            var _this5 = this;
 
             axios.get('/gesloten').then(function (response) {
-                _this4.gesloten = response.data;
-                console.log(response.data);
+                _this5.gesloten = response.data;
             });
         },
         getTijdsloten: function getTijdsloten() {
-            var _this5 = this;
+            var _this6 = this;
 
             axios.get('/tijdsloten').then(function (response) {
-                _this5.tijdsloten = response.data;
-                console.log(response.data);
+                _this6.tijdsloten = response.data;
             });
         },
         storeNewKlanten: function storeNewKlanten() {
             this.persistStoreNewKlanten('post', '/klanten', this.newKlanten);
         },
         persistStoreNewKlanten: function persistStoreNewKlanten(method, uri, form) {
-            var _this6 = this;
+            var _this7 = this;
 
             axios[method](uri, form).then(function (response) {
-                _this6.getKlanten();
+                _this7.getKlanten();
             }).catch(function (error) {
                 if (_typeof(error.response.data) === 'object') {
                     console.log(_.flatten(_.toArray(error.response.data)));
@@ -69712,10 +69760,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             this.persistStoreNewKlanten('post', '/reservaties', this.newReservaties);
         }
     }, _defineProperty(_methods, 'persistStoreNewKlanten', function persistStoreNewKlanten(method, uri, form) {
-        var _this7 = this;
+        var _this8 = this;
 
         axios[method](uri, form).then(function (response) {
-            _this7.getReservaties();
+            _this8.getReservaties();
         }).catch(function (error) {
             if (_typeof(error.response.data) === 'object') {
                 console.log(_.flatten(_.toArray(error.response.data)));
@@ -69733,16 +69781,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.pageNext = true;
         this.storeNewKlanten();
         this.klant_id = this.klanten[this.klanten.length - 1].id;
-        console.log(this.klant_id);
         this.nextPage = false;
     }), _defineProperty(_methods, 'chooseBoat', function chooseBoat(event) {
         this.clickedBoats = event.srcElement.id;
-        console.log(this.clickedBoats);
     }), _defineProperty(_methods, 'moment', function moment() {
         this.pickedDate = true;
         this.dayOfWeek = __WEBPACK_IMPORTED_MODULE_0_moment_moment__(__WEBPACK_IMPORTED_MODULE_0_moment_moment__(this.newReservaties.datum)).locale('nl-be').format('dddd');
         // this.newReservaties.datum = moment().locale('en-ca').format('L');
-        console.log(this.dayOfWeek);
     }), _methods)
 });
 
@@ -69757,14 +69802,14 @@ var render = function() {
   return _c("div", { attrs: { id: "app" } }, [
     _c("h1", [_vm._v("form")]),
     _vm._v(" "),
-    _c("p", { staticClass: "pTekst" }, [
-      _vm._v(
-        "Kies je dag, vervolgens je uur en kies dan de boot die voor jou gepast is en bij je gezelschap past!"
-      )
-    ]),
-    _vm._v(" "),
     _vm.firstPage
       ? _c("div", [
+          _c("p", { staticClass: "pTekst" }, [
+            _vm._v(
+              "Kies je dag, vervolgens je uur en kies dan de boot die voor jou gepast is en bij je gezelschap past!"
+            )
+          ]),
+          _vm._v(" "),
           _c("form", { attrs: { action: "", id: "contactForm" } }, [
             _c("fieldset", { staticClass: "control-group" }, [
               _c("legend", [_vm._v("Stap 1")]),
@@ -69776,7 +69821,7 @@ var render = function() {
                   attrs: { for: "" }
                 },
                 [
-                  _vm._v("Kies je dag\n                    "),
+                  _vm._v("Kies je dag\n                                "),
                   _c("input", {
                     directives: [
                       {
@@ -69833,9 +69878,9 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n                    Kies je uur" +
+                      "\n                                Kies je uur" +
                         _vm._s(_vm.selectedButton) +
-                        "\n                    "
+                        "\n                                "
                     ),
                     _c(
                       "div",
@@ -69847,7 +69892,7 @@ var render = function() {
                                 _vm._s(slot.uur_start) +
                                   "-" +
                                   _vm._s(slot.uur_eind) +
-                                  "\n                            "
+                                  "\n                                        "
                               ),
                               _c("input", {
                                 directives: [
@@ -69887,10 +69932,10 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("hr"),
-          _vm._v(" "),
           _vm.newReservaties.tijdsloten_id !== null
             ? _c("div", { staticClass: "table-responsive" }, [
+                _c("hr"),
+                _vm._v(" "),
                 _c("legend", [_vm._v("Stap 3")]),
                 _vm._v(" "),
                 _c("p", { staticClass: "col-md-9 mb-2 mb-md-0" }, [
@@ -69916,7 +69961,7 @@ var render = function() {
                           _c("td", [_vm._v(_vm._s(boot.prijs))]),
                           _vm._v(" "),
                           _c("td", [
-                            _vm._v("Kies\n                            "),
+                            _vm._v("Kies\n                        "),
                             _c("input", {
                               directives: [
                                 {
@@ -69995,11 +70040,15 @@ var render = function() {
               [_vm._v("Reset")]
             ),
             _vm._v(" "),
-            _c("button", {
-              staticClass: "btn btn-primary",
-              attrs: { type: "submit", id: "sendMessageButton" },
-              on: { click: _vm.next }
-            })
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary buttonUur buttonTekst",
+                attrs: { type: "submit", id: "sendMessageButton" },
+                on: { click: _vm.next }
+              },
+              [_vm._v("Volgende")]
+            )
           ])
         ])
       : _vm._e(),
@@ -70193,21 +70242,414 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
+            _c("div", { staticClass: "control-group" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "form-group floating-label-form-group controls col-md-6"
+                },
+                [
+                  _c("label", [_vm._v("Opmerkingen")]),
+                  _vm._v(" "),
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.newKlanten.opmerkingen,
+                        expression: "newKlanten.opmerkingen"
+                      }
+                    ],
+                    staticClass: "form-control ",
+                    attrs: {
+                      placeholder: "Typ hier je opmerkingen",
+                      id: "opmerkingen",
+                      required: "",
+                      "data-validation-required-message":
+                        "Please enter your email address."
+                    },
+                    domProps: { value: _vm.newKlanten.opmerkingen },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.newKlanten,
+                          "opmerkingen",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "help-block text-danger" })
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "control-group" }, [
+                _c("label", { attrs: { for: "" } }, [
+                  _vm._v("Factuur\n                "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.factuurCheck,
+                        expression: "factuurCheck"
+                      }
+                    ],
+                    attrs: { type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.factuurCheck)
+                        ? _vm._i(_vm.factuurCheck, null) > -1
+                        : _vm.factuurCheck
+                    },
+                    on: {
+                      change: function($event) {
+                        var $$a = _vm.factuurCheck,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 && (_vm.factuurCheck = $$a.concat([$$v]))
+                          } else {
+                            $$i > -1 &&
+                              (_vm.factuurCheck = $$a
+                                .slice(0, $$i)
+                                .concat($$a.slice($$i + 1)))
+                          }
+                        } else {
+                          _vm.factuurCheck = $$c
+                        }
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.factuurCheck,
+                      expression: "factuurCheck"
+                    }
+                  ]
+                },
+                [
+                  _c("div", { staticClass: "control-group" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "form-group floating-label-form-group controls col-md-6"
+                      },
+                      [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("VAT-nummer\n                    "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.newKlanten.vat,
+                                expression: "newKlanten.vat"
+                              }
+                            ],
+                            staticClass: "form-control ",
+                            attrs: { type: "number" },
+                            domProps: { value: _vm.newKlanten.vat },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.newKlanten,
+                                  "vat",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "control-group" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "form-group floating-label-form-group controls col-md-6"
+                      },
+                      [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Bedrijfsnaam\n                    "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.newKlanten.company_name,
+                                expression: "newKlanten.company_name"
+                              }
+                            ],
+                            staticClass: "form-control ",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.newKlanten.company_name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.newKlanten,
+                                  "company_name",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "control-group" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "form-group floating-label-form-group controls col-md-6"
+                      },
+                      [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Straat\n                    "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.newKlanten.street,
+                                expression: "newKlanten.street"
+                              }
+                            ],
+                            staticClass: "form-control ",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.newKlanten.street },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.newKlanten,
+                                  "street",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "control-group" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "form-group floating-label-form-group controls col-md-6"
+                      },
+                      [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Nummer\n                    "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.newKlanten.number,
+                                expression: "newKlanten.number"
+                              }
+                            ],
+                            staticClass: "form-control ",
+                            attrs: { type: "number" },
+                            domProps: { value: _vm.newKlanten.number },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.newKlanten,
+                                  "number",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "control-group" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "form-group floating-label-form-group controls col-md-6"
+                      },
+                      [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Postcode\n                    "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.newKlanten.zip,
+                                expression: "newKlanten.zip"
+                              }
+                            ],
+                            staticClass: "form-control ",
+                            attrs: { type: "number" },
+                            domProps: { value: _vm.newKlanten.zip },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.newKlanten,
+                                  "zip",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "control-group" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "form-group floating-label-form-group controls col-md-6"
+                      },
+                      [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Stad\n                    "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.newKlanten.city,
+                                expression: "newKlanten.city"
+                              }
+                            ],
+                            staticClass: "form-control ",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.newKlanten.city },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.newKlanten,
+                                  "city",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "control-group" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "form-group floating-label-form-group controls col-md-6"
+                      },
+                      [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Land\n                    "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.newKlanten.country,
+                                expression: "newKlanten.country"
+                              }
+                            ],
+                            staticClass: "form-control ",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.newKlanten.country },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.newKlanten,
+                                  "country",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ])
+                      ]
+                    )
+                  ])
+                ]
+              )
+            ]),
+            _vm._v(" "),
             _c("br"),
             _vm._v(" "),
             _c("div", { attrs: { id: "success" } }),
             _vm._v(" "),
             _c("div", { staticClass: "form-group flexButton" }, [
-              _c("button", {
-                staticClass: "btn btn-secondary",
-                attrs: { type: "reset", id: "sendMessageButton" }
-              }),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-secondary",
+                  attrs: { type: "reset", id: "sendMessageButton" }
+                },
+                [_vm._v("Vorige\n                        ")]
+              ),
               _vm._v(" "),
-              _c("button", {
-                staticClass: "btn btn-primary",
-                attrs: { type: "submit", id: "sendMessageButton" },
-                on: { click: _vm.volgende }
-              })
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  attrs: { type: "submit", id: "sendMessageButton" },
+                  on: { click: _vm.volgende }
+                },
+                [_vm._v("Volgende\n                        ")]
+              )
             ])
           ]
         )
@@ -70233,7 +70675,15 @@ var render = function() {
                       _vm._v("Telefoon: " + _vm._s(_vm.newKlanten.telefoon))
                     ]),
                     _vm._v(" "),
-                    _c("p", [_vm._v("E-mail: " + _vm._s(_vm.newKlanten.email))])
+                    _c("p", [
+                      _vm._v("E-mail: " + _vm._s(_vm.newKlanten.email))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _vm._v(
+                        "Opmerkingen: " + _vm._s(_vm.newKlanten.opmerkingen)
+                      )
+                    ])
                   ])
                 ]),
                 _vm._v(" "),
@@ -70255,20 +70705,22 @@ var render = function() {
                         [
                           _c("div", [
                             _c("h5", { staticClass: "my-0" }, [
-                              _vm._v("Boot " + _vm._s(_vm.boten[number].id))
+                              _vm._v("Boot " + _vm._s(_vm.boten[number - 1].id))
                             ]),
                             _vm._v(" "),
                             _c("small", { staticClass: "text-muted" }, [
                               _vm._v(
                                 "boot voor " +
-                                  _vm._s(_vm.boten[number].aantal_plaatsen) +
+                                  _vm._s(
+                                    _vm.boten[number - 1].aantal_plaatsen
+                                  ) +
                                   " personen"
                               )
                             ])
                           ]),
                           _vm._v(" "),
                           _c("span", { staticClass: "text-muted" }, [
-                            _vm._v("€" + _vm._s(_vm.boten[number].prijs))
+                            _vm._v("€" + _vm._s(_vm.boten[number - 1].prijs))
                           ])
                         ]
                       )
@@ -70277,7 +70729,18 @@ var render = function() {
                   _vm._v(" "),
                   _c("hr"),
                   _vm._v(" "),
-                  _vm._m(1)
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        " d-flex justify-content-between lh-condensed"
+                    },
+                    [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c("span", [_vm._v(_vm._s(_vm.total))])
+                    ]
+                  )
                 ]),
                 _vm._v(" "),
                 _c("div", { attrs: { id: "success" } }),
@@ -70307,9 +70770,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                        " +
-                            _vm._s(_vm.showMessages) +
-                            "\n                    "
+                          "\n                                    Verzenden\n                                "
                         )
                       ]
                     )
@@ -70361,19 +70822,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: " d-flex justify-content-between lh-condensed" },
-      [
-        _c("div", [
-          _c("h3", { staticClass: "my-0" }, [_vm._v("Totaal")]),
-          _vm._v(" "),
-          _c("small", { staticClass: "text-muted" }, [_vm._v("Btw incl.")])
-        ]),
-        _vm._v(" "),
-        _c("span", [_vm._v("€15")])
-      ]
-    )
+    return _c("div", [
+      _c("h3", { staticClass: "my-0" }, [_vm._v("Totaal")]),
+      _vm._v(" "),
+      _c("small", { staticClass: "text-muted" }, [_vm._v("Btw incl.")])
+    ])
   }
 ]
 render._withStripped = true

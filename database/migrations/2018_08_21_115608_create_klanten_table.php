@@ -21,7 +21,15 @@ class CreateKlantenTable extends Migration
             $table->integer('telefoon');
             $table->string('email');
             $table->integer('companies_id');
-        });
+            $table->text('opmerkingen');
+            $table->integer('vat')->nullable();
+            $table->string('company_name')->nullable();
+            $table->string('street')->nullable();
+            $table->integer('number')->nullable();
+            $table->integer('zip')->nullable();
+            $table->string('city')->nullable();
+            $table->string('country')->nullable();
+                });
     }
 
     /**

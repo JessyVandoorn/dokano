@@ -36,3 +36,37 @@ html{
   .py-4 {
     padding-bottom: unset;
   }
+
+  a {
+    color: white;
+}
+
+.flexButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 77vw;
+    margin-top: 3rem;
+}
+
+.buttonUur {
+    width: 8rem;
+}
+
+.buttonDag {
+    width: 14rem;
+}
+
+.pTekst {
+    margin-top: 1rem;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+/* .buttonTekst {
+  color: white;
+} */

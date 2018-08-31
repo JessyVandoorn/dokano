@@ -40,7 +40,8 @@ class KlantenController extends Controller
     public function store(Request $request)
     {
         Log::warning($request);
-        DB::table('klanten')->insert(['voornaam' =>$request['voornaam'], 'naam'=>$request['naam'],'telefoon'=>$request['telefoon'], 'email'=>$request['email'], 'companies_id'=>$request['companies_id'], 'created_at'=>Carbon::now()]);
+        DB::table('klanten')->insert(['voornaam' =>$request['voornaam'], 'opmerkingen'=>$request['opmerkingen'], 'naam'=>$request['naam'],'telefoon'=>$request['telefoon'], 'email'=>$request['email'], 'companies_id'=>$request['companies_id'], 'created_at'=>Carbon::now(),
+        'vat'=>$request['vat'], 'company_name'=>$request['company_name'], 'street'=>$request['street'], 'number'=>$request['number'], 'zip'=>$request['zip'], 'city'=>$request['city'], 'country'=>$request['country']]);
     }
 
     /**
