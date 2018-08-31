@@ -101,6 +101,9 @@
                         <div class="card-header">
                             <i class="fas fa-chart-area"></i> Dag overzicht personen overzicht</div>
                         <div class="card-body">
+                            <div class="form-group">
+                            <input v-model="dateReservaties" type="date" class="form-control" v-on:change="getReservaties();"/>
+                            </div>
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
@@ -108,8 +111,7 @@
                                             <td>Naam</td>
                                             <td>Telefoon</td>
                                             <td>Email</td>
-                                            <td>Personen/boot</td>
-                                            <td>Boten</td>
+                                            <td>Boot</td>
                                             <td>Aanwezig</td>
                                         </tr>
                                     </thead>
@@ -120,13 +122,7 @@
                                             <td>{{reservatie.klant.email}}</td>
                                             <td>
                                                 <template v-if="reservatie.boten" v-for="boot in reservatie.boten">
-                                                    {{ boot.aantal_plaatsen}}<br/>
-                                                </template>
-                                            </td>
-                                            <td>
-                                                <template v-for="boot in reservatie.boten">
-                                                    {{boot.boten_id}}
-                                                    <br/>
+                                                    {{ boot.aantal_plaatsen}} plaatsen, nr. {{boot.boten_id}}<br/>
                                                 </template>
                                             </td>
                                             <td>
@@ -145,33 +141,30 @@
                             <i class="fas fa-table"></i>
                             Tijdsloten per dag</div>
                         <div class="card-body">
+                            <div class="form-group">
+                            <input v-model="dateReservaties" type="date" class="form-control" v-on:change="getReservaties();"/>
+                            </div>
                             <div class="table-responsive">
-                                <button @click="toggleVandaag">Vandaag</button>
-                                <button @click="toggleMorgen">Morgen</button>
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>{{date}}</th>
+                                            <th>dateReservaties</th>
                                             <th>Boten</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <template v-for="sloten in list" v-if="sloten.klant.datum === dateNow">
+                                        <template v-for="sloten in list" v-if="sloten.klant.datum === dateReservaties">
                                             <tr>
                                                 <td>{{sloten.klant.uur_start}} - {{sloten.klant.uur_eind}}</td>
                                                 <td>
                                                     <template v-for="boot in sloten.boten">
-                                                        {{boot.boten_id}}
+                                                        nr. {{boot.boten_id}}
                                                         <br/>
                                                     </template>
                                                 </td>
                                             </tr>
                                         </template>
-                                        <template v-else>
-                                        <tr>
-                                            <td v-once>Vandaag zijn we gesloten</td>
-                                        </tr>
-                                        </template>
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -215,7 +208,9 @@
                 list: [],
                 dateNow: '',
                 date: '',
-                total: null
+                total: null,
+                user: [],
+                dateReservaties: ''
             }
         },
         mounted() {
@@ -223,12 +218,25 @@
         },
         methods: {
             prepareComponent() {
+                this.dateNow = moment().locale('en-ca').format('L');
+                this.date = moment().locale('nl-be').format('ll');
+                this.dateReservaties = moment().locale('nl-be').format('YYYY-MM-DD');
+                console.log(this.dateReservaties);
+                console.log(this.dateNow);
+                this.getUser();
                 this.getBoten();
                 this.getGesloten();
                 this.getTijdsloten();
                 this.getKlanten();
                 this.getReservaties();
                 this.getTime();
+            },
+            getUser() {
+                axios.get('/user')
+                    .then(response => {
+                        this.user = response.data[0];
+                        console.log(response.data);
+                    });
             },
             getBoten() {
                 axios.get('/boten')
@@ -245,9 +253,10 @@
                     });
             },
             getReservaties() {
-                axios.get('/reservaties')
+                axios.get('/reservaties/'+this.dateReservaties)
                     .then(response => {
                         this.list = response.data;
+                        console.log('list');
                         console.log(response.data);
                     });
             },
@@ -259,7 +268,7 @@
                     });
             },
             getTijdsloten() {
-                axios.get('/tijdsloten')
+                axios.get('/companies/'+this.user.company_id+'/tijdsloten')
                     .then(response => {
                         this.tijdsloten = response.data;
                         console.log(response.data);

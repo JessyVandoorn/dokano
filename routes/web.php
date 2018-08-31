@@ -20,20 +20,24 @@ Route::get('/customer', 'CustomerController@index')->name('customer');
 Route::get('/app', 'ApplicationController@index')->name('application');
 Route::get('/boten', 'BotenController@index');
 Route::post('boten', 'BotenController@store');
+Route::post('/boten/remove/{id}', 'BotenController@destroy');
+Route::post('/companies/{c_id}/tijdsloten/{id}/remove', 'TijdslotenController@destroy');
 Auth::routes();
 
 Route::get('/gesloten', 'GeslotenController@index');
 Route::post('gesloten', 'GeslotenController@store');
 
-Route::get('/reservaties', 'ReservatiesController@index');
+Route::get('/reservaties/{date}', 'ReservatiesController@index');
 Route::post('reservaties', 'ReservatiesController@store');
 
 Route::get('/klanten', 'KlantenController@index');
 Route::post('/klanten', 'KlantenController@store');
 Route::get('/klanten/{id}', 'KlantenController@show');
 
-Route::get('/tijdsloten', 'TijdslotenController@index');
+Route::get('/companies/{c_id}/tijdsloten', 'TijdslotenController@index');
 Route::post('tijdsloten', 'TijdslotenController@store');
+
+Route::get('/user', 'UserController@index');
 
 Route::get('/home', 'HomeController@index')->name('home');
 

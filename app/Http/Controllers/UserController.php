@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
+use Auth;
 use DB;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Log;
 
-class BotenController extends Controller
+use Illuminate\Http\Request;
+
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,9 @@ class BotenController extends Controller
      */
     public function index()
     {
-        $boten = DB::table('boten')->select('boten.*')->get();
+        $user_id = Auth::user()->id;
 
-        return $boten;
+        return DB::table('users')->where('id', $user_id)->get();
     }
 
     /**
@@ -39,10 +39,7 @@ class BotenController extends Controller
      */
     public function store(Request $request)
     {
-        // Log::warning($request);
-        for($i = 1;$i<=$request['aantal_beschikbaar'];$i++){
-            DB::table('boten')->insert(['aantal_plaatsen' =>$request['aantal_plaatsen'], 'max_kids'=>$request['max_kids'],'types_id'=>$request['types_id'], 'prijs'=>$request['prijs'], 'aantal_beschikbaar'=>$request['aantal_beschikbaar'], 'created_at'=>Carbon::now()]);
-        }
+        //
     }
 
     /**
@@ -87,8 +84,6 @@ class BotenController extends Controller
      */
     public function destroy($id)
     {
-        Log::warning($id);
-        DB::table('boten')->where('id', $id)->delete();
-        
+        //
     }
 }

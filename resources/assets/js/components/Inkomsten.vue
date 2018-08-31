@@ -3,22 +3,16 @@
         <div id="wrapper">
         <ul class="sidebar navbar-nav">
             <li class="nav-item">
-                <!-- <a class="nav-link" href="inkomsten.html"> -->
                 <i class="fas fa-fw fa-chart-area"></i>
                 <router-link to="/">Home</router-link>
-                <!-- <a class="nav-link" href="{{ route('home') }}">{{ __('Dashboard') }}</a> -->
             </li>
             <li class="nav-item">
-                <!-- <a class="nav-link" href="inkomsten.html"> -->
                 <i class="fas fa-fw fa-chart-area"></i>
                 <router-link to="/instellingen">Instellingen</router-link>
-                <!-- <a class="nav-link" href="{{ route('inkomsten') }}">{{ __('Inkomsten') }}</a> -->
             </li>
             <li class="nav-item">
-                <!-- <a class="nav-link" href="instellingen.html"> -->
                 <i class="fas fa-fw fa-table"></i>
                 <router-link to="/inkomsten">Inkomsten</router-link>
-                <!-- <a class="nav-link" href="{{ route('instellingen') }}">{{ __('Instellingen') }}</a> -->
             </li>
         </ul>
 

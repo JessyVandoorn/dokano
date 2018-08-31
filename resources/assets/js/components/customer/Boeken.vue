@@ -166,6 +166,14 @@
                     <p>E-mail: {{newKlanten.email}}</p>
                     <p>Opmerkingen: {{newKlanten.opmerkingen}}</p>
                 </section>
+                <section v-show="newKlanten.company_name !== null">
+                    <h3>Bedrijfsgegevens</h3>
+                    <p>Bedrijfsnaam: {{newKlanten.company_name}}</p>
+                    <p>Straat + nr: {{newKlanten.street}} - {{newKlanten.number}}</p>
+                    <p>Postcode - Stad: {{newKlanten.zip}} - {{newKlanten.city}}</p>
+                    <p>VAT-nummer: {{newKlanten.vat}}</p>
+                    <p>Land: {{newKlanten.country}}</p>
+                </section>
             </div>
             <section class="col-md-4 order-md-2 mb-4">
                 <h4 class="text-muted">Je gekozen boten</h4>
@@ -296,7 +304,7 @@
                     });
             },
             getTijdsloten() {
-                axios.get('/tijdsloten')
+                axios.get('/companies/'+this.$route.params.id+'/tijdsloten')
                     .then(response => {
                         this.tijdsloten = response.data;
                     });

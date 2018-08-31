@@ -66055,10 +66055,6 @@ var routes = [{
     component: __webpack_require__(171),
     name: 'inkomsten'
 }, {
-    path: '/boeken',
-    component: __webpack_require__(173),
-    name: 'boeken'
-}, {
     path: '/persoon',
     component: __webpack_require__(176),
     name: 'persoon'
@@ -66066,6 +66062,10 @@ var routes = [{
     path: '/overzicht',
     component: __webpack_require__(179),
     name: 'overzicht'
+}, {
+    path: '/boeken/:id',
+    component: __webpack_require__(173),
+    name: 'boeken'
 }];
 
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
@@ -66325,13 +66325,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -66344,7 +66337,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             list: [],
             dateNow: '',
             date: '',
-            total: null
+            total: null,
+            user: [],
+            dateReservaties: ''
         };
     },
     mounted: function mounted() {
@@ -66353,6 +66348,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         prepareComponent: function prepareComponent() {
+            this.dateNow = __WEBPACK_IMPORTED_MODULE_0_moment_moment__().locale('en-ca').format('L');
+            this.date = __WEBPACK_IMPORTED_MODULE_0_moment_moment__().locale('nl-be').format('ll');
+            this.dateReservaties = __WEBPACK_IMPORTED_MODULE_0_moment_moment__().locale('nl-be').format('YYYY-MM-DD');
+            console.log(this.dateReservaties);
+            console.log(this.dateNow);
+            this.getUser();
             this.getBoten();
             this.getGesloten();
             this.getTijdsloten();
@@ -66360,43 +66361,52 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.getReservaties();
             this.getTime();
         },
-        getBoten: function getBoten() {
+        getUser: function getUser() {
             var _this = this;
 
+            axios.get('/user').then(function (response) {
+                _this.user = response.data[0];
+                console.log(response.data);
+            });
+        },
+        getBoten: function getBoten() {
+            var _this2 = this;
+
             axios.get('/boten').then(function (response) {
-                _this.boten = response.data;
+                _this2.boten = response.data;
                 console.log(response.data);
             });
         },
         getKlanten: function getKlanten() {
-            var _this2 = this;
+            var _this3 = this;
 
             axios.get('/klanten').then(function (response) {
-                _this2.klanten = response.data;
+                _this3.klanten = response.data;
                 console.log(response.data);
             });
         },
         getReservaties: function getReservaties() {
-            var _this3 = this;
+            var _this4 = this;
 
-            axios.get('/reservaties').then(function (response) {
-                _this3.list = response.data;
+            axios.get('/reservaties/' + this.dateReservaties).then(function (response) {
+                _this4.list = response.data;
+                console.log('list');
                 console.log(response.data);
             });
         },
         getGesloten: function getGesloten() {
-            var _this4 = this;
+            var _this5 = this;
 
             axios.get('/gesloten').then(function (response) {
-                _this4.gesloten = response.data;
+                _this5.gesloten = response.data;
                 console.log(response.data);
             });
         },
         getTijdsloten: function getTijdsloten() {
-            var _this5 = this;
+            var _this6 = this;
 
-            axios.get('/tijdsloten').then(function (response) {
-                _this5.tijdsloten = response.data;
+            axios.get('/companies/' + this.user.company_id + '/tijdsloten').then(function (response) {
+                _this6.tijdsloten = response.data;
                 console.log(response.data);
             });
         },
@@ -66743,6 +66753,33 @@ var render = function() {
             _vm._m(2),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.dateReservaties,
+                      expression: "dateReservaties"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "date" },
+                  domProps: { value: _vm.dateReservaties },
+                  on: {
+                    change: function($event) {
+                      _vm.getReservaties()
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.dateReservaties = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
               _c("div", { staticClass: "table-responsive" }, [
                 _c(
                   "table",
@@ -66777,28 +66814,13 @@ var render = function() {
                                   ? [
                                       _vm._v(
                                         "\n                                                " +
-                                          _vm._s(boot.aantal_plaatsen)
+                                          _vm._s(boot.aantal_plaatsen) +
+                                          " plaatsen, nr. " +
+                                          _vm._s(boot.boten_id)
                                       ),
                                       _c("br")
                                     ]
                                   : _vm._e()
-                              })
-                            ],
-                            2
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            [
-                              _vm._l(reservatie.boten, function(boot) {
-                                return [
-                                  _vm._v(
-                                    "\n                                                " +
-                                      _vm._s(boot.boten_id) +
-                                      "\n                                                "
-                                  ),
-                                  _c("br")
-                                ]
                               })
                             ],
                             2
@@ -66822,15 +66844,34 @@ var render = function() {
             _vm._m(5),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.dateReservaties,
+                      expression: "dateReservaties"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "date" },
+                  domProps: { value: _vm.dateReservaties },
+                  on: {
+                    change: function($event) {
+                      _vm.getReservaties()
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.dateReservaties = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
               _c("div", { staticClass: "table-responsive" }, [
-                _c("button", { on: { click: _vm.toggleVandaag } }, [
-                  _vm._v("Vandaag")
-                ]),
-                _vm._v(" "),
-                _c("button", { on: { click: _vm.toggleMorgen } }, [
-                  _vm._v("Morgen")
-                ]),
-                _vm._v(" "),
                 _c(
                   "table",
                   {
@@ -66838,19 +66879,13 @@ var render = function() {
                     attrs: { id: "dataTable", width: "100%", cellspacing: "0" }
                   },
                   [
-                    _c("thead", [
-                      _c("tr", [
-                        _c("th", [_vm._v(_vm._s(_vm.date))]),
-                        _vm._v(" "),
-                        _c("th", [_vm._v("Boten")])
-                      ])
-                    ]),
+                    _vm._m(6),
                     _vm._v(" "),
                     _c(
                       "tbody",
                       [
                         _vm._l(_vm.list, function(sloten) {
-                          return sloten.klant.datum === _vm.dateNow
+                          return sloten.klant.datum === _vm.dateReservaties
                             ? [
                                 _c("tr", [
                                   _c("td", [
@@ -66867,7 +66902,7 @@ var render = function() {
                                       _vm._l(sloten.boten, function(boot) {
                                         return [
                                           _vm._v(
-                                            "\n                                                    " +
+                                            "\n                                                    nr. " +
                                               _vm._s(boot.boten_id) +
                                               "\n                                                    "
                                           ),
@@ -66879,7 +66914,7 @@ var render = function() {
                                   )
                                 ])
                               ]
-                            : [_c("tr", [_vm._m(6)])]
+                            : _vm._e()
                         })
                       ],
                       2
@@ -67070,9 +67105,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("td", [_vm._v("Email")]),
         _vm._v(" "),
-        _c("td", [_vm._v("Personen/boot")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("Boten")]),
+        _c("td", [_vm._v("Boot")]),
         _vm._v(" "),
         _c("td", [_vm._v("Aanwezig")])
       ])
@@ -67097,7 +67130,13 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [_vm._v("Vandaag zijn we gesloten")])
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("dateReservaties")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Boten")])
+      ])
+    ])
   },
   function() {
     var _vm = this
@@ -67474,6 +67513,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -67481,6 +67522,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             boten: [],
             gesloten: [],
             tijdsloten: [],
+            user: [],
             loggedinUser: {
                 'username': '',
                 'email': '',
@@ -67509,6 +67551,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
             },
             weekdag: ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'],
+            bootId: '',
             weekdagSelected: 'maandag'
         };
     },
@@ -67518,31 +67561,40 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     methods: {
         prepareComponent: function prepareComponent() {
+            this.getUser();
             this.getBoten();
             this.getGesloten();
-            this.getTijdsloten();
         },
-        getBoten: function getBoten() {
+        getUser: function getUser() {
             var _this = this;
 
+            axios.get('/user').then(function (response) {
+                _this.user = response.data[0];
+                console.log(response.data);
+                _this.getTijdsloten();
+            });
+        },
+        getBoten: function getBoten() {
+            var _this2 = this;
+
             axios.get('/boten').then(function (response) {
-                _this.boten = response.data;
+                _this2.boten = response.data;
                 console.log(response.data);
             });
         },
         getGesloten: function getGesloten() {
-            var _this2 = this;
+            var _this3 = this;
 
             axios.get('/gesloten').then(function (response) {
-                _this2.gesloten = response.data;
+                _this3.gesloten = response.data;
                 console.log(response.data);
             });
         },
         getTijdsloten: function getTijdsloten() {
-            var _this3 = this;
+            var _this4 = this;
 
-            axios.get('/tijdsloten').then(function (response) {
-                _this3.tijdsloten = response.data;
+            axios.get('/companies/' + this.user.company_id + '/tijdsloten').then(function (response) {
+                _this4.tijdsloten = response.data;
                 console.log(response.data);
             });
         },
@@ -67550,10 +67602,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             this.persistStoreNewBoot('post', '/boten', this.newBoot);
         },
         persistStoreNewBoot: function persistStoreNewBoot(method, uri, form) {
-            var _this4 = this;
+            var _this5 = this;
 
             axios[method](uri, form).then(function (response) {
-                _this4.getBoten();
+                _this5.getBoten();
             }).catch(function (error) {
                 if (_typeof(error.response.data) === 'object') {
                     console.log(_.flatten(_.toArray(error.response.data)));
@@ -67566,10 +67618,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             this.persistStoreNewBoot('post', '/tijdsloten', this.newTijdsloten);
         },
         persistStoreNewTijdsloten: function persistStoreNewTijdsloten(method, uri, form) {
-            var _this5 = this;
+            var _this6 = this;
 
             axios[method](uri, form).then(function (response) {
-                _this5.getTijdsloten();
+                _this6.getTijdsloten();
             }).catch(function (error) {
                 if (_typeof(error.response.data) === 'object') {
                     console.log(_.flatten(_.toArray(error.response.data)));
@@ -67582,10 +67634,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             this.persistStoreNewGesloten('post', '/gesloten', this.newGesloten);
         },
         persistStoreNewGesloten: function persistStoreNewGesloten(method, uri, form) {
-            var _this6 = this;
+            var _this7 = this;
 
             axios[method](uri, form).then(function (response) {
-                _this6.getGesloten();
+                _this7.getGesloten();
             }).catch(function (error) {
                 if (_typeof(error.response.data) === 'object') {
                     console.log(_.flatten(_.toArray(error.response.data)));
@@ -67602,13 +67654,23 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             this.weekdagSelected = dag;
             console.log(dag);
         },
-        removeBoot: function removeBoot(item) {
-            this.boten.splice(this.boten.indexOf(item), 1);
-            // this.counter--;
-        },
         removeSlot: function removeSlot(dag) {
-            this.tijdsloten.splice(this.tijdsloten.indexOf(dag), 1);
-            // this.counter--;
+            var _this8 = this;
+
+            var self = this;
+            console.log('TEST');
+            console.log(dag);
+            axios.post('/companies/' + this.user.company_id + '/tijdsloten/' + dag.id + '/remove').then(function (response) {
+                _this8.getTijdsloten();
+            });
+        },
+        deleteBoot: function deleteBoot(item) {
+            var _this9 = this;
+
+            var self = this;
+            axios.post('/boten/remove/' + item.id).then(function (response) {
+                _this9.getBoten();
+            });
         }
     }
 });
@@ -67697,10 +67759,19 @@ var render = function() {
                           _c(
                             "button",
                             {
+                              staticClass: "btn btn-outline-primary",
+                              attrs: { value: item.id },
                               on: {
                                 click: function($event) {
-                                  _vm.removeBoot(item)
+                                  _vm.deleteBoot(item)
                                 }
+                              },
+                              model: {
+                                value: _vm.bootId,
+                                callback: function($$v) {
+                                  _vm.bootId = $$v
+                                },
+                                expression: "bootId"
                               }
                             },
                             [_vm._v("Verwijderen")]
@@ -68850,6 +68921,7 @@ var render = function() {
                                 _c(
                                   "button",
                                   {
+                                    staticClass: "btn btn-outline-primary",
                                     on: {
                                       click: function($event) {
                                         _vm.removeSlot(dag)
@@ -69636,6 +69708,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -69736,7 +69816,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         getTijdsloten: function getTijdsloten() {
             var _this6 = this;
 
-            axios.get('/tijdsloten').then(function (response) {
+            axios.get('/companies/' + this.$route.params.id + '/tijdsloten').then(function (response) {
                 _this6.tijdsloten = response.data;
             });
         },
@@ -70684,7 +70764,56 @@ var render = function() {
                         "Opmerkingen: " + _vm._s(_vm.newKlanten.opmerkingen)
                       )
                     ])
-                  ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "section",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.newKlanten.company_name !== null,
+                          expression: "newKlanten.company_name !== null"
+                        }
+                      ]
+                    },
+                    [
+                      _c("h3", [_vm._v("Bedrijfsgegevens")]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "Bedrijfsnaam: " + _vm._s(_vm.newKlanten.company_name)
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "Straat + nr: " +
+                            _vm._s(_vm.newKlanten.street) +
+                            " - " +
+                            _vm._s(_vm.newKlanten.number)
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "Postcode - Stad: " +
+                            _vm._s(_vm.newKlanten.zip) +
+                            " - " +
+                            _vm._s(_vm.newKlanten.city)
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v("VAT-nummer: " + _vm._s(_vm.newKlanten.vat))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v("Land: " + _vm._s(_vm.newKlanten.country))
+                      ])
+                    ]
+                  )
                 ]),
                 _vm._v(" "),
                 _c("section", { staticClass: "col-md-4 order-md-2 mb-4" }, [
@@ -71363,11 +71492,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -71375,7 +71499,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             boten: [],
             gesloten: [],
             tijdsloten: [],
-            showMessages: false
+            showMessages: false,
+            user: []
         };
     },
     mounted: function mounted() {
@@ -71384,31 +71509,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         prepareComponent: function prepareComponent() {
+            this.getUser();
             this.getBoten();
             this.getGesloten();
             this.getTijdsloten();
         },
-        getBoten: function getBoten() {
+        getUser: function getUser() {
             var _this = this;
 
+            axios.get('/user').then(function (response) {
+                _this.user = response.data[0];
+                console.log(response.data);
+            });
+        },
+        getBoten: function getBoten() {
+            var _this2 = this;
+
             axios.get('/boten').then(function (response) {
-                _this.boten = response.data;
+                _this2.boten = response.data;
                 console.log(response.data);
             });
         },
         getGesloten: function getGesloten() {
-            var _this2 = this;
+            var _this3 = this;
 
             axios.get('/gesloten').then(function (response) {
-                _this2.gesloten = response.data;
+                _this3.gesloten = response.data;
                 console.log(response.data);
             });
         },
         getTijdsloten: function getTijdsloten() {
-            var _this3 = this;
+            var _this4 = this;
 
-            axios.get('/tijdsloten').then(function (response) {
-                _this3.tijdsloten = response.data;
+            axios.get('/companies/' + this.user.company_id + '/tijdsloten').then(function (response) {
+                _this4.tijdsloten = response.data;
                 console.log(response.data);
             });
         },

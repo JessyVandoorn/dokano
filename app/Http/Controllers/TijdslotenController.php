@@ -14,9 +14,9 @@ class TijdslotenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($c_id, Request $request)
     {
-        $tijdsloten = DB::table('tijdsloten')->get();
+        $tijdsloten = DB::table('tijdsloten')->where('companies_id', $c_id)->get();
 
         return $tijdsloten;
     }
@@ -86,8 +86,9 @@ class TijdslotenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($c_id, $id)
     {
-        //
+        Log::warning($id);
+        DB::table('tijdsloten')->where('id', $id)->delete();
     }
 }

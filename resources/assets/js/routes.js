@@ -18,11 +18,6 @@ let routes = [
         name: 'inkomsten'
     },
     {
-        path:'/boeken',
-        component: require('./components/customer/Boeken.vue'),
-        name: 'boeken'
-    },
-    {
         path:'/persoon',
         component: require('./components/customer/Persoon.vue'),
         name: 'persoon'
@@ -31,6 +26,11 @@ let routes = [
         path:'/overzicht',
         component: require('./components/customer/Overzicht.vue'),
         name: 'overzicht'
+    },
+    {
+        path: '/boeken/:id',
+        component: require('./components/customer/Boeken.vue'),
+        name: 'boeken'
     }
         ];
 

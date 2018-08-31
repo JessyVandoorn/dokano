@@ -10,11 +10,6 @@
                         <p>Telefoon:</p>
                         <p>E-mail</p>
                     </section>
-                    <!-- <section>
-                        <h2>Boot</h2>
-                        <p>Naam Boot:</p>
-                        <p>Aantal personen:</p>
-                    </section> -->
                     
                 </div>
                 <section class="col-md-4 order-md-2 mb-4">
@@ -69,7 +64,8 @@
                 boten: [],
                 gesloten: [],
                 tijdsloten: [],
-                showMessages: false
+                showMessages: false,
+                user: []
             }
         },
         mounted() {
@@ -77,9 +73,17 @@
         },
         methods: {
             prepareComponent() {
+                this.getUser();
                 this.getBoten();
                 this.getGesloten();
                 this.getTijdsloten();
+            },
+            getUser() {
+                axios.get('/user')
+                    .then(response => {
+                        this.user = response.data[0];
+                        console.log(response.data);
+                    });
             },
             getBoten() {
                 axios.get('/boten')
@@ -96,7 +100,7 @@
                     });
             },
             getTijdsloten() {
-                axios.get('/tijdsloten')
+                axios.get('/companies/'+ this.user.company_id+'/tijdsloten')
                     .then(response => {
                         this.tijdsloten = response.data;
                         console.log(response.data);

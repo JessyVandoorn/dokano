@@ -14,10 +14,10 @@ class ReservatiesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($date)
     {
         // $reservaties = DB::table('reservaties')->select('reservaties.*')->get();
-        $reservaties = DB::table('reservaties')->join('klanten', 'reservaties.klanten_id', '=', 'klanten.id')->join('boten', 'reservaties.boten_id', '=', 'boten.id')->join('tijdsloten', 'reservaties.tijdsloten_id', '=', 'tijdsloten.id')->select('reservaties.id as reservatie_id', 'klanten.id as klanten_id', 'klanten.naam', 'klanten.voornaam','klanten.telefoon', 'klanten.email' ,'boten.aantal_plaatsen', 'tijdsloten.uur_start', 'tijdsloten.uur_eind', 'reservaties.datum', 'boten.id as boten_id')->get();
+        $reservaties = DB::table('reservaties')->join('klanten', 'reservaties.klanten_id', '=', 'klanten.id')->join('boten', 'reservaties.boten_id', '=', 'boten.id')->join('tijdsloten', 'reservaties.tijdsloten_id', '=', 'tijdsloten.id')->where('reservaties.datum', $date)->select('reservaties.id as reservatie_id', 'klanten.id as klanten_id', 'klanten.naam', 'klanten.voornaam','klanten.telefoon', 'klanten.email' ,'boten.aantal_plaatsen', 'tijdsloten.uur_start', 'tijdsloten.uur_eind', 'reservaties.datum', 'boten.id as boten_id')->get();
 
         $previous_id = '';
         $list = Array();
@@ -45,10 +45,13 @@ class ReservatiesController extends Controller
             $previous_id = $item->klanten_id;
         }
 
-        $reservatie_item['boten'] = $boten;
+        if(count($reservaties) >= 1){
+            $reservatie_item['boten'] = $boten;
 
         $list[] = $reservatie_item;
 
+        }
+        
         Log::warning($list);
 
         return $list;

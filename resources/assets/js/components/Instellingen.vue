@@ -49,7 +49,9 @@
                                         <td>{{item.max_kids}}</td>
                                         <td>{{item.types_id}}</td>
                                         <td>{{item.prijs}}</td>
-                                        <td><button @click="removeBoot(item)">Verwijderen</button></td>
+                                        <td>
+                                            <button class="btn btn-outline-primary" @click="deleteBoot(item)" :value="item.id" v-model="bootId">Verwijderen</button>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -237,7 +239,7 @@
                                 <tbody>
                                     <tr v-for="dag in tijdsloten" v-if="dag.dagen === weekdagSelected">
                                         <td>{{dag.uur_start}} - {{dag.uur_eind}}</td>
-                                        <td><button @click="removeSlot(dag)">Verwijderen</button></td>
+                                        <td><button class="btn btn-outline-primary" @click="removeSlot(dag)">Verwijderen</button></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -293,6 +295,7 @@
                 boten: [],
                 gesloten: [],
                 tijdsloten: [],
+                user: [],
                 loggedinUser: {
                     'username': '',
                     'email': '',
@@ -323,6 +326,7 @@
                 weekdag: [
                     'zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'
                 ],
+                bootId:'',
                 weekdagSelected: 'maandag'
             }
         },
@@ -331,9 +335,17 @@
         },
         methods: {
             prepareComponent() {
+                this.getUser();
                 this.getBoten();
                 this.getGesloten();
-                this.getTijdsloten();
+            },
+            getUser() {
+                axios.get('/user')
+                    .then(response => {
+                        this.user = response.data[0];
+                        console.log(response.data);
+                        this.getTijdsloten();
+                    });
             },
             getBoten() {
                 axios.get('/boten')
@@ -350,7 +362,8 @@
                     });
             },
             getTijdsloten() {
-                axios.get('/tijdsloten')
+                
+                axios.get('/companies/'+ this.user.company_id +'/tijdsloten')
                     .then(response => {
                         this.tijdsloten = response.data;
                         console.log(response.data);
@@ -418,13 +431,21 @@
                 this.weekdagSelected = dag;
                 console.log(dag);
             },
-            removeBoot(item) {
-                this.boten.splice(this.boten.indexOf(item), 1);
-                // this.counter--;
-            },
             removeSlot(dag) {
-                this.tijdsloten.splice(this.tijdsloten.indexOf(dag), 1);
-                // this.counter--;
+                let self = this;
+                console.log('TEST');
+                console.log(dag);
+                axios.post('/companies/' + this.user.company_id + '/tijdsloten/' + dag.id+'/remove')
+                    .then(response => {
+                        this.getTijdsloten();
+                    })
+            },
+            deleteBoot(item){
+                let self = this;
+                axios.post('/boten/remove/' + item.id)
+                    .then(response => {
+                        this.getBoten();
+                    })
             }
         }
     }
